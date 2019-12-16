@@ -1,12 +1,8 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
-import KAGO_framework.model.abitur.datenstrukturen.Stack;
-import my_project.model.TaubeNuesschen;
 
 import java.awt.event.MouseEvent;
-
-import static java.awt.event.MouseEvent.BUTTON1;
 
 
 /**
@@ -31,11 +27,6 @@ private ViewController viewController;
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
-        TaubeNuesschen taubeNuesschen1 = new TaubeNuesschen(100,200);
-        viewController.draw(taubeNuesschen1);
-        TaubeNuesschen taubeNuesschen2 = new TaubeNuesschen(200,200);
-        viewController.draw(taubeNuesschen2);
-
 
     }
 
@@ -57,8 +48,7 @@ private ViewController viewController;
     public void mouseClicked(MouseEvent e) {
 
 
-        }
-
     }
+}
 
 
