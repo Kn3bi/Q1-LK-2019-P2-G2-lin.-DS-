@@ -8,6 +8,7 @@ public class MainController {
     private StrukturController strukturCon;
 
     public MainController(){
+        new MainController();
         viewCon = new ViewController();
         strukturCon = new StrukturController();
         soundCon = new SoundController();

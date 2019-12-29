@@ -1,6 +1,10 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import my_project.model.Bank;
+import my_project.model.Investoren;
+import my_project.model.Mannschaft;
+import my_project.model.Spieler;
 
 import java.awt.event.MouseEvent;
 
@@ -14,6 +18,11 @@ public class ProgramController {
 
     // Referenzen
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
+    private Mannschaft mannschaftA;
+    private Mannschaft mannschaftB;
+    private Bank bankA;
+    private Bank bankB;
+    private Investoren[][] investoren;
 
     /**
      * Konstruktor
@@ -24,13 +33,31 @@ public class ProgramController {
      */
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
+        mannschaftA = new Mannschaft();
+        mannschaftB = new Mannschaft();
+        bankA = new Bank();
+        bankB = new Bank();
+        investoren = new Investoren[2][3];
     }
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
-
+        for(int i = 0; i <10;i++){
+            if (i < 3){
+                mannschaftA.fillTheTeam(new Spieler());
+                mannschaftB.fillTheTeam(new Spieler());
+            }else{
+                bankA.fillTheTeam(new Spieler());
+                bankB.fillTheTeam(new Spieler());
+            }
+        }
+        for (int i = 0; i<investoren.length;i++){
+            for (int j = 0; j < investoren[i].length;j++){
+                investoren[i][j] = new Investoren(mannschaftA,mannschaftB);
+            }
+        }
     }
 
     /**
@@ -50,6 +77,10 @@ public class ProgramController {
      */
     public void mouseClicked(MouseEvent e){
 
+
+    }
+
+    public void fillTeams(){
 
     }
 
