@@ -7,7 +7,7 @@ package my_project;
 public class Config {
 
     // Titel des Programms (steht oben in der Fenstertitelzeile)
-    public final static String WINDOW_TITLE = "Dieses Fenster hat noch keinen Titel. Einstellbar in: my_project > Config";
+    public final static String WINDOW_TITLE = "I am doing this after Disney World :(";
 
     // Breite des Programmfensters (Width) und Höhe des Programmfensters (Height)
     public final static int WINDOW_WIDTH = 1000;
