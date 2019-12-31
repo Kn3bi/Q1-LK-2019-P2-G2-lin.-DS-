@@ -1,10 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
-import my_project.model.Bank;
-import my_project.model.Investoren;
-import my_project.model.Mannschaft;
-import my_project.model.Spieler;
+import my_project.model.*;
 
 import java.awt.event.MouseEvent;
 
@@ -23,6 +20,8 @@ public class ProgramController {
     private Bank bankA;
     private Bank bankB;
     private Investoren[][] investoren;
+    private Ball ball;
+    private Tor torA, torB;
 
     /**
      * Konstruktor
@@ -33,31 +32,27 @@ public class ProgramController {
      */
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
-        mannschaftA = new Mannschaft();
-        mannschaftB = new Mannschaft();
+        torA = new Tor();
+        torB = new Tor();
+        ball = new Ball(torA, torB, 200, 200);
+        mannschaftA = new Mannschaft(ball);
+        mannschaftB = new Mannschaft(ball);
         bankA = new Bank();
         bankB = new Bank();
         investoren = new Investoren[2][3];
+        //--------------------------------------------------------------------
+        fillTeams();
+        fillInvestors();
+        mannschaftA.changePlayer();
     }
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
-        for(int i = 0; i <10;i++){
-            if (i < 3){
-                mannschaftA.fillTheTeam(new Spieler());
-                mannschaftB.fillTheTeam(new Spieler());
-            }else{
-                bankA.fillTheTeam(new Spieler());
-                bankB.fillTheTeam(new Spieler());
-            }
-        }
-        for (int i = 0; i<investoren.length;i++){
-            for (int j = 0; j < investoren[i].length;j++){
-                investoren[i][j] = new Investoren(mannschaftA,mannschaftB);
-            }
-        }
+        viewController.draw(mannschaftA);
+        viewController.draw(mannschaftB);
+        viewController.draw(ball);
     }
 
     /**
@@ -81,7 +76,23 @@ public class ProgramController {
     }
 
     public void fillTeams(){
+        for(int i = 0; i <10;i++){
+            if (i < 3){
+                mannschaftA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+                mannschaftB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+            }else{
+                bankA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+                bankB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+            }
+        }
+    }
 
+    public void fillInvestors(){
+        for (int i = 0; i<investoren.length;i++){
+            for (int j = 0; j < investoren[i].length;j++){
+                investoren[i][j] = new Investoren(mannschaftA,mannschaftB);
+            }
+        }
     }
 
 }
