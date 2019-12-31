@@ -2,7 +2,6 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import my_project.model.*;
-
 import java.awt.event.MouseEvent;
 
 /**
