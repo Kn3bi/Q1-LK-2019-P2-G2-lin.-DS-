@@ -31,13 +31,13 @@ public class ProgramController {
      */
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
-        torA = new Tor();
-        torB = new Tor();
-        ball = new Ball(torA, torB, 200, 200);
+        ball = new Ball(200, 200);
+        torA = new Tor(ball);
+        torB = new Tor(ball);
         mannschaftA = new Mannschaft(ball);
         mannschaftB = new Mannschaft(ball);
-        bankA = new Bank();
-        bankB = new Bank();
+        bankA = new Bank(mannschaftA);
+        bankB = new Bank(mannschaftB);
         investoren = new Investoren[2][3];
         //--------------------------------------------------------------------
         fillTeams();
@@ -60,8 +60,8 @@ public class ProgramController {
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
     public void updateProgram(double dt){
-
-
+        bankA.heileDieSpieler();
+        bankB.heileDieSpieler();
     }
 
     /**

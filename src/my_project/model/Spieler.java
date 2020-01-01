@@ -38,4 +38,10 @@ public class Spieler extends GraphicalObject {
     public int getRadius(){
         return radius;
     }
+
+    public void recharge(){
+        if (stamina>100 ||stamina != 100){
+            stamina++;
+        }
+    }
 }

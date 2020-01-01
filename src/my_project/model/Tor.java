@@ -2,8 +2,10 @@ package my_project.model;
 
 public class Tor {
 
-    public Tor(){
+    private Ball ball;
 
+    public Tor(Ball ball){
+        this.ball = ball;
     }
 
 

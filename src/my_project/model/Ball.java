@@ -5,13 +5,9 @@ import KAGO_framework.view.DrawTool;
 
 public class Ball extends GraphicalObject {
 
-    private Tor torA;
-    private Tor torB;
     private int radius;
 
-    public Ball(Tor torA, Tor torB,double x,double y){
-        this.torA = torA;
-        this.torB = torB;
+    public Ball(double x,double y){
         this.x = x;
         this.y = y;
         radius = 20;
