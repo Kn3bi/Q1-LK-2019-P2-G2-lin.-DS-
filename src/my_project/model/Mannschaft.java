@@ -28,6 +28,9 @@ public class Mannschaft extends GraphicalObject {
 
     }
 
+    /**
+     * Diese Methode dient der Auffüllung der Liste (extern)
+     */
     public void fillTheTeam(Spieler spieler){
         mannschaft.append(spieler);
     }
