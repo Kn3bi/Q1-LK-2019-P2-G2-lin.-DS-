@@ -29,8 +29,10 @@ public class Bank {
     }
 
     public void runterVonDerBank(){
-        mannschaft.fillTheTeam(bank.top());
-        bank.pop();
+        if (!bank.isEmpty()) {
+            mannschaft.fillTheTeam(bank.top());
+            bank.pop();
+        }
     }
 
     public void heileDieSpieler(){
@@ -52,9 +54,13 @@ public class Bank {
             bench.next();
         }
         bench.toFirst();
-        while (player.getStamina() != 100){
+        while (player != null && player.getStamina() != 100){
             bench.getContent().recharge();
             bench.next();
         }
+    }
+
+    public void mehrSpieler(Spieler spieler){
+        bank.push(spieler);
     }
 }

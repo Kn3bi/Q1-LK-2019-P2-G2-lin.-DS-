@@ -2,12 +2,15 @@ package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.model.abitur.datenstrukturen.List;
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
+import KAGO_framework.model.abitur.datenstrukturen.Stack;
 import KAGO_framework.view.DrawTool;
 
 public class Mannschaft extends GraphicalObject {
 
     private List<Spieler> mannschaft;
     private Ball ball;
+
 
     public Mannschaft(Ball ball){
         mannschaft = new List<>();
@@ -43,7 +46,7 @@ public class Mannschaft extends GraphicalObject {
         return mannschaft.getContent();
     }
 
-    //chnagePlayer ist orientiert an getDistanceTo(GraphicalObject gO)
+    //changePlayer ist orientiert an getDistanceTo(GraphicalObject gO)
     public void changePlayer(){
         boolean playerA = false;
         boolean playerB = false;
@@ -77,5 +80,17 @@ public class Mannschaft extends GraphicalObject {
             mannschaft.toLast();
         }
         System.out.println(pA+" "+pB+" "+pC);
+    }
+
+    public void auswecheln(Stack<Spieler> bank, Bank bench){
+        mannschaft.toFirst();
+        while (mannschaft.hasAccess()){
+            if (mannschaft.getContent().getStamina()<=0){
+                bank.push(mannschaft.getContent());
+                mannschaft.remove();
+            }
+            mannschaft.next();
+        }
+        bench.runterVonDerBank();
     }
 }

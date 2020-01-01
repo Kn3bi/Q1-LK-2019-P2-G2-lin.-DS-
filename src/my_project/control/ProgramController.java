@@ -36,8 +36,6 @@ public class ProgramController {
         torB = new Tor(ball);
         mannschaftA = new Mannschaft(ball);
         mannschaftB = new Mannschaft(ball);
-        bankA = new Bank(mannschaftA);
-        bankB = new Bank(mannschaftB);
         investoren = new Investoren[2][3];
         //--------------------------------------------------------------------
         fillTeams();
@@ -62,6 +60,7 @@ public class ProgramController {
     public void updateProgram(double dt){
         bankA.heileDieSpieler();
         bankB.heileDieSpieler();
+        mannschaftA.auswecheln(bankA.getBank(),bankA);
     }
 
     /**
