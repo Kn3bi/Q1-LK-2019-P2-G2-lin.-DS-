@@ -1,47 +1,60 @@
 package my_project.model;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
-import KAGO_framework.model.abitur.datenstrukturen.Stack;
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
 
 public class Bank {
 
-    private Stack<Spieler> bank;
+    private Queue<Spieler> bank;
     private Mannschaft mannschaft;
     private int anzahlSpieler;
 
     public Bank(Mannschaft mannschaft){
-       bank = new Stack<>();
+       bank = new Queue<>();
        this.mannschaft = mannschaft;
        anzahlSpieler = 0;
     }
 
+    /**
+     * Die Methode dient zur auffüllung der Bank von außerhalb. Außerdem werden gezählt wie viele auf der Bank sind.
+     */
     public void fillTheTeam(Spieler spieler){
-        bank.push(spieler);
+        bank.enqueue(spieler);
         anzahlSpieler++;
     }
 
     public Spieler getAktSpieler(){
-        return bank.top();
+        return bank.front();
     }
 
-    public Stack getBank(){
+    public Queue getBank(){
         return bank;
     }
 
+    /**
+     * Die Methode dient dazu einen Spieler aus der Queue in die Mannschaftsliste zu tun und diesen dann zu entfernen.
+     */
     public void runterVonDerBank(){
         if (!bank.isEmpty()) {
-            mannschaft.fillTheTeam(bank.top());
-            bank.pop();
+            mannschaft.fillTheTeam(bank.front());
+            bank.dequeue();
         }
     }
 
+    /**
+     * Die Methode dient zur Heilung der Spieler. Dort werden alle vorhandenen Spieler in eine Liste getan.
+     * Dies dient zur vereinfachung des heilens aller Spieler. Danach wird geschaut wie oft maximal geheilt werden muss.
+     * Solange man einen nicht vollständig geheilten Spieler hat und der schwächste nicht vollständig geheilt ist, wird
+     * der aktuelle Spieler um einen Ausdauerpunkt geheilt und dann ist der nächste dran.
+     * Man beachte beim betrachten auf die Methode recharge vom Spieler.
+     */
     public void heileDieSpieler(){
         int tmp = anzahlSpieler;
         List<Spieler> bench = new List<>();
         while (tmp !=0){
-            bench.append(bank.top());
-            bank.push(bank.top());
-            bank.pop();
+            bench.append(bank.front());
+            bank.enqueue(bank.front());
+            bank.front();
             tmp--;
         }
         bench.toFirst();
@@ -58,9 +71,5 @@ public class Bank {
             bench.getContent().recharge();
             bench.next();
         }
-    }
-
-    public void mehrSpieler(Spieler spieler){
-        bank.push(spieler);
     }
 }

@@ -47,6 +47,9 @@ public class Mannschaft extends GraphicalObject {
     }
 
     //changePlayer ist orientiert an getDistanceTo(GraphicalObject gO)
+    /**
+     * Die Methode
+     */
     public void changePlayer(){
         boolean playerA = false;
         boolean playerB = false;
@@ -82,15 +85,18 @@ public class Mannschaft extends GraphicalObject {
         System.out.println(pA+" "+pB+" "+pC);
     }
 
-    public void auswecheln(Stack<Spieler> bank, Bank bench){
+    /**
+     * Die Methode
+     */
+    public void auswecheln(Queue<Spieler> bank, Bank bench){
         mannschaft.toFirst();
         while (mannschaft.hasAccess()){
             if (mannschaft.getContent().getStamina()<=0){
-                bank.push(mannschaft.getContent());
+                bank.enqueue(mannschaft.getContent());
                 mannschaft.remove();
+                bench.runterVonDerBank();
             }
             mannschaft.next();
         }
-        bench.runterVonDerBank();
     }
 }
