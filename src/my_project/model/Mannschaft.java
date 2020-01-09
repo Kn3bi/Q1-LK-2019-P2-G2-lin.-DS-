@@ -47,6 +47,8 @@ public class Mannschaft extends GraphicalObject {
     }
 
     //changePlayer ist orientiert an getDistanceTo(GraphicalObject gO)
+    //TODO Lösche die Konsolenausgabe zur berechnung der Distanz, wenn die Methode fertig ist
+    //TODO Jemand muss eindeutig diese Methode überarbeiten, denn Mathe ist schwer mit Kreisen und Pythagoras
     /**
      * Die Methode
      */
