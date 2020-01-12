@@ -41,6 +41,8 @@ public class ProgramController {
         bankA = new Bank(mannschaftA);
         bankB = new Bank(mannschaftB);
         investoren = new Investoren[2][3];
+
+
         //--------------------------------------------------------------------
         fillTeams();
         fillInvestors();
