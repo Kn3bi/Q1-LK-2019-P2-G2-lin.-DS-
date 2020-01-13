@@ -11,6 +11,10 @@ public class Spieler extends GraphicalObject {
     private int speed;
     private int stamina;
     private int radius;
+    private boolean left;
+    private boolean right;
+    private boolean up;
+    private boolean down;
 
     public Spieler(double x, double y){
         setNewImage("assets/images/bay");
@@ -20,6 +24,7 @@ public class Spieler extends GraphicalObject {
         this.x = x;
         this.y = y;
         radius = 10;
+
     }
 
     @Override
@@ -31,6 +36,20 @@ public class Spieler extends GraphicalObject {
 
     @Override
     public void update(double dt) {
+        if(right){
+            x+=speed*dt;
+        }
+        if(left){
+            x-=speed*dt;
+        }
+        if(up){
+            y-=speed*dt;
+        }
+        if(down){
+            y+=speed*dt;
+        }
+
+
 
     }
 
