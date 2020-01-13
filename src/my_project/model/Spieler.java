@@ -17,8 +17,8 @@ public class Spieler extends GraphicalObject {
     private boolean down;
 
     public Spieler(double x, double y){
-        setNewImage("assets/images/bay");
-        setNewImage("assets/images/th");
+        player1 = createImage("assets/images/bay.jpg");
+        player2 = createImage("assets/images/th.jpg");
         speed = (int)(Math.random()*10+20);
         stamina = 100;
         this.x = x;
@@ -84,4 +84,5 @@ public class Spieler extends GraphicalObject {
             stamina++;
         }
     }
+    
 }
