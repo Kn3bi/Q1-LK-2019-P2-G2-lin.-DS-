@@ -53,6 +53,19 @@ public class Spieler extends GraphicalObject {
 
     }
 
+    public boolean getLeft(){
+        return left;
+    }
+    public boolean getRight(){
+        return right;
+    }
+
+    public boolean getUp(){
+        return up;
+    }
+    public boolean getDown(){
+        return down;
+    }
     public int getSpeed() {
         return speed;
     }
