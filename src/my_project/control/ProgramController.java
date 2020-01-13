@@ -18,6 +18,12 @@ public class ProgramController {
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     private Mannschaft mannschaftA;
     private Mannschaft mannschaftB;
+    private Spieler     spielerA1;
+    private Spieler     spielerA2;
+    private Spieler     spielerA3;
+    private Spieler     spielerB1;
+    private Spieler     spielerB2;
+    private Spieler     spielerB3;
     private Bank bankA;
     private Bank bankB;
     private Investoren[][] investoren;
@@ -33,6 +39,12 @@ public class ProgramController {
      */
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
+        spielerA1 = new Spieler(100,100);
+        spielerA2 = new Spieler(100,200);
+        spielerA3 = new Spieler(100,300);
+        spielerB1 = new Spieler(400,100);
+        spielerB2 = new Spieler(400,200);
+        spielerB3 = new Spieler(400,300);
         ball = new Ball(200, 200);
         torA = new Tor(ball);
         torB = new Tor(ball);
