@@ -2,6 +2,8 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import my_project.model.*;
+
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 /**
@@ -36,26 +38,37 @@ public class ProgramController {
         torB = new Tor(ball);
         mannschaftA = new Mannschaft(ball);
         mannschaftB = new Mannschaft(ball);
+        bankA = new Bank(mannschaftA);
+        bankB = new Bank(mannschaftB);
         investoren = new Investoren[2][3];
         //--------------------------------------------------------------------
         fillTeams();
         fillInvestors();
         mannschaftA.changePlayer();
+        viewController.createScene();
+        viewController.createScene();
+        viewController.createScene();
+        viewController.createScene();
+        viewController.showScene(3);
     }
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
-        viewController.draw(mannschaftA);
-        viewController.draw(mannschaftB);
-        viewController.draw(ball);
+        viewController.draw(mannschaftA,3);
+        viewController.draw(mannschaftB,3);
+        viewController.draw(ball,3);
     }
 
     /**
      * Für FORTGESCHRITTENE
      * Diese Methode wird wiederholt automatisch aufgerufen und zwar für jede Frame einmal, d.h. über 25 mal pro Sekunde.
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     *
+     *           if(viewController.isKeyDown(KeyEvent.VK_UP)){
+     *             System.out.println("Moin");
+     *         }
      */
     public void updateProgram(double dt){
         bankA.heileDieSpieler();
@@ -73,6 +86,9 @@ public class ProgramController {
 
     }
 
+    /**
+     * Die Methode dient zur auffüllung der Bänke und der Mannschaften.
+     */
     public void fillTeams(){
         for(int i = 0; i <10;i++){
             if (i < 3){
@@ -85,6 +101,9 @@ public class ProgramController {
         }
     }
 
+    /**
+     * Die Methode dient zur auffüllung des Investoren-Arrays.
+     */
     public void fillInvestors(){
         for (int i = 0; i<investoren.length;i++){
             for (int j = 0; j < investoren[i].length;j++){
