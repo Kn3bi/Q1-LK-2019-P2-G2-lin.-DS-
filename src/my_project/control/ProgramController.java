@@ -5,6 +5,8 @@ import my_project.model.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import KAGO_framework.model.abitur.datenstrukturen.List;
+
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -88,6 +90,8 @@ public class ProgramController {
         bankA.heileDieSpieler();
         bankB.heileDieSpieler();
         mannschaftA.auswecheln(bankA.getBank(),bankA);
+        pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(),dt);
+        pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(),dt);
     }
 
     /**
@@ -124,6 +128,54 @@ public class ProgramController {
                 investoren[i][j] = new Investoren(mannschaftA,mannschaftB);
             }
         }
+    }
+
+    /**
+     *
+     * @param m die übergebene MAnnschaft, deren alle Spieler auf eine BAllkollision überprüft werden
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     */
+    public void pruefeSchussFuerAlleSpieler(List<Spieler> m,double dt){
+        m.toFirst();
+        while(m.hasAccess()){
+            schussKollision(m.getContent(),ball,dt);
+            m.next();
+        }
+    }
+    /**
+     *
+     * @param spieler ein Spieler,der den Ball wegschießt
+     * @param ball ein BAll, der in den Winkel abgeschossen wird, wie ihn der Spieler trifft
+     *            und nach einer Weile langsamer wird
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     */
+    public void schussKollision(Spieler spieler,Ball ball,double dt){
+        // Der Abstand in X-(horizontal) und Y-Richtung(vertikal) wird festgelegt
+        double dx=spieler.getX()-ball.getX();
+        double dy=spieler.getY()-ball.getY();
+        //Die Hypothenuse des rechtwinkligen Dreiecks mit dx und dy als Katheten widr festgelegt
+        double hypothenuse=Math.sqrt(Math.pow(dx,2)+ Math.pow(dy,2));
+        //Die Radien der Kreisobjekte werden festgelegt
+        double rs=spieler.getWidth();
+        double rb=ball.getWidth();
+        //Falls Objekte sich berühren, berechne für X und Y Richtung die neuen GEschwindigkeiten,
+        // falls die Hypothnuse den Wert 1 hätte und
+        // man diese mit der Geschwindigkeit des Spielers(und mehr) verfielfachen würde
+        if(hypothenuse<(rb+rs)/2){
+            ball.setVx(-dx/hypothenuse*spieler.getSpeed()*1.5);
+            ball.setVy(-dy/hypothenuse*spieler.getSpeed()*1.5);
+        }else {
+            //Sonst: Lasse den Ball langsamer werden, bis er stoppt.
+            // Hier müssen die Fälle beachtet werden,
+            // dass die Gerschwindigkeit, je nach Richtung, negativ sein kann.
+            if(ball.getVx()!=0) {
+                ball.setVx(ball.getVx() - 20 * ball.getVx() / Math.abs(ball.getVx())* dt);
+            }
+            if(ball.getVy()!=0) {
+                ball.setVy(ball.getVy() - 20 * ball.getVy() / Math.abs(ball.getVy())* dt );
+            }
+        }
+
     }
 
 }
