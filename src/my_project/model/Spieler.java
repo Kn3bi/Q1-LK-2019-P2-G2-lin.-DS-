@@ -25,6 +25,7 @@ public class Spieler extends GraphicalObject {
         this.y = y;
         radius = 10;
 
+
     }
 
     @Override
