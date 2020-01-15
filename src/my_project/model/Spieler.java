@@ -19,7 +19,7 @@ public class Spieler extends GraphicalObject {
     public Spieler(double x, double y){
         player1 = createImage("assets/images/bay.jpg");
         player2 = createImage("assets/images/th.jpg");
-        speed = (int)(Math.random()*10+20);
+        speed = (int)(Math.random()*10+100);
         stamina = 100;
         this.x = x;
         this.y = y;

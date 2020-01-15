@@ -20,12 +20,6 @@ public class ProgramController {
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     private Mannschaft mannschaftA;
     private Mannschaft mannschaftB;
-    private Spieler     spielerA1;
-    private Spieler     spielerA2;
-    private Spieler     spielerA3;
-    private Spieler     spielerB1;
-    private Spieler     spielerB2;
-    private Spieler     spielerB3;
     private Bank bankA;
     private Bank bankB;
     private Investoren[][] investoren;
@@ -41,12 +35,6 @@ public class ProgramController {
      */
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
-        spielerA1 = new Spieler(100,100);
-        spielerA2 = new Spieler(100,200);
-        spielerA3 = new Spieler(100,300);
-        spielerB1 = new Spieler(400,100);
-        spielerB2 = new Spieler(400,200);
-        spielerB3 = new Spieler(400,300);
         ball = new Ball(200, 200);
         torA = new Tor(ball);
         torB = new Tor(ball);
@@ -87,25 +75,29 @@ public class ProgramController {
      *         }
      */
     public void updateProgram(double dt){
-        mannschaftA.getMannschaft().toFirst();
+
         bankA.heileDieSpieler();
         bankB.heileDieSpieler();
         mannschaftA.auswecheln(bankA.getBank(),bankA);
         pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(),dt);
         pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(),dt);
         if(viewController.isKeyDown(KeyEvent.VK_RIGHT)){
+            mannschaftA.getMannschaft().toFirst();
 
             mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX()+mannschaftA.getAktSpieler().getSpeed()*dt);
         }
         if(viewController.isKeyDown(KeyEvent.VK_LEFT)) {
+            mannschaftA.getMannschaft().toFirst();
 
             mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() - mannschaftA.getAktSpieler().getSpeed() * dt);
         }
         if(viewController.isKeyDown(KeyEvent.VK_UP)) {
+            mannschaftA.getMannschaft().toFirst();
 
             mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() - mannschaftA.getAktSpieler().getSpeed() * dt);
         }
         if(viewController.isKeyDown(KeyEvent.VK_DOWN)) {
+            mannschaftA.getMannschaft().toFirst();
 
             mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
         }
