@@ -92,6 +92,9 @@ public class ProgramController {
         mannschaftA.auswecheln(bankA.getBank(),bankA);
         pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(),dt);
         pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(),dt);
+        if(viewController.isKeyDown(KeyEvent.VK_RIGHT)){
+            mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX()+20*dt);
+        }
     }
 
     /**

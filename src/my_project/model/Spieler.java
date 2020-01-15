@@ -67,6 +67,10 @@ public class Spieler extends GraphicalObject {
     public boolean getDown(){
         return down;
     }
+    public double getX(){
+        return x;
+    }
+
     public int getSpeed() {
         return speed;
     }
