@@ -87,13 +87,27 @@ public class ProgramController {
      *         }
      */
     public void updateProgram(double dt){
+        mannschaftA.getMannschaft().toFirst();
         bankA.heileDieSpieler();
         bankB.heileDieSpieler();
         mannschaftA.auswecheln(bankA.getBank(),bankA);
         pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(),dt);
         pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(),dt);
         if(viewController.isKeyDown(KeyEvent.VK_RIGHT)){
+
             mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX()+mannschaftA.getAktSpieler().getSpeed()*dt);
+        }
+        if(viewController.isKeyDown(KeyEvent.VK_LEFT)) {
+
+            mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() - mannschaftA.getAktSpieler().getSpeed() * dt);
+        }
+        if(viewController.isKeyDown(KeyEvent.VK_UP)) {
+
+            mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() - mannschaftA.getAktSpieler().getSpeed() * dt);
+        }
+        if(viewController.isKeyDown(KeyEvent.VK_DOWN)) {
+
+            mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
         }
     }
 

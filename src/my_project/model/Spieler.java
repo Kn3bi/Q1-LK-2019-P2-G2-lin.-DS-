@@ -70,7 +70,13 @@ public class Spieler extends GraphicalObject {
     public double getX(){
         return x;
     }
-public void setSpeed(){
+
+    @Override
+    public void setX(double x) {
+        super.setX(x);
+    }
+
+    public void setSpeed(){
         this.speed=speed;
 }
     public int getSpeed() {
