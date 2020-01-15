@@ -2,25 +2,32 @@ package my_project.model;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
+import KAGO_framework.model.abitur.datenstrukturen.Stack;
 
 public class Bank {
 
     private Queue<Spieler> bank;
     private Mannschaft mannschaft;
     private int anzahlSpieler;
+    private Stack<Spieler> elfMeterTruppe;
 
     public Bank(Mannschaft mannschaft){
        bank = new Queue<>();
        this.mannschaft = mannschaft;
        anzahlSpieler = 0;
+       elfMeterTruppe = new Stack<>();
     }
 
     /**
      * Die Methode dient zur auffüllung der Bank von außerhalb. Außerdem werden gezählt wie viele auf der Bank sind.
+     * Außerdem werden Spieler in das Stack, welches für das Elfmeter wichtig werden in das Stack getan.
      */
     public void fillTheTeam(Spieler spieler){
         bank.enqueue(spieler);
         anzahlSpieler++;
+        if (anzahlSpieler != 5){
+            elfMeterTruppe.push(spieler);
+        }
     }
 
     public Spieler getAktSpieler(){

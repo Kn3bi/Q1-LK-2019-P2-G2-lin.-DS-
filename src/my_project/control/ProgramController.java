@@ -24,7 +24,9 @@ public class ProgramController {
     private Bank bankB;
     private Investoren[][] investoren;
     private Ball ball;
-    private Tor torA, torB;
+    private Tor torA;
+    private my_project.control.ViewController viewCon;
+    private int scene;
 
     /**
      * Konstruktor
@@ -37,13 +39,13 @@ public class ProgramController {
         this.viewController = ViewController;
         ball = new Ball(200, 200);
         torA = new Tor(ball);
-        torB = new Tor(ball);
         mannschaftA = new Mannschaft(ball);
         mannschaftB = new Mannschaft(ball);
         bankA = new Bank(mannschaftA);
         bankB = new Bank(mannschaftB);
         investoren = new Investoren[2][3];
-
+        viewCon = new my_project.control.ViewController();
+        scene = 0;
 
         //--------------------------------------------------------------------
         fillTeams();
@@ -53,28 +55,46 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         viewController.createScene();
-        viewController.showScene(3);
+        viewController.showScene(scene);
     }
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
-        viewController.draw(mannschaftA,3);
-        viewController.draw(mannschaftB,3);
-        viewController.draw(ball,3);
+        viewController.draw(viewCon.getStartV(),0);
+        viewController.draw(viewCon.getAnleitungsV(),1);
+        viewController.draw(viewCon.getSpielV(),2);
+        viewController.draw(viewCon.getZeitV(),2);
+        viewController.draw(mannschaftA,2);
+        viewController.draw(mannschaftB,2);
+        viewController.draw(ball,2);
+        viewController.draw(torA,2);
     }
 
     /**
      * Für FORTGESCHRITTENE
      * Diese Methode wird wiederholt automatisch aufgerufen und zwar für jede Frame einmal, d.h. über 25 mal pro Sekunde.
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
-     *
-     *           if(viewController.isKeyDown(KeyEvent.VK_UP)){
-     *             System.out.println("Moin");
-     *         }
      */
     public void updateProgram(double dt){
+        if (viewController.isKeyDown(KeyEvent.VK_0)){
+            if (scene == 0){
+                scene = 1;
+                System.out.println(scene);
+                viewController.showScene(scene);
+            }
+        }else if (viewController.isKeyDown(KeyEvent.VK_9)){
+            if (scene == 0) {
+                scene = 2;
+                viewController.showScene(scene);
+            }
+        }else if (viewController.isKeyDown(KeyEvent.VK_1)){
+            if (scene == 1) {
+                scene = 0;
+                viewController.showScene(scene);
+            }
+        }
 
         bankA.heileDieSpieler();
         bankB.heileDieSpieler();
@@ -186,5 +206,4 @@ public class ProgramController {
         }
 
     }
-
 }
