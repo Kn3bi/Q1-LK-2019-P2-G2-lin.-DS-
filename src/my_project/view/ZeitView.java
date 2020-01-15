@@ -5,7 +5,7 @@ import KAGO_framework.view.DrawTool;
 
 public class ZeitView extends GraphicalObject {
 
-    private int zeit;
+    private double zeit;
 
     public ZeitView(){
         zeit = 0;
@@ -18,6 +18,6 @@ public class ZeitView extends GraphicalObject {
 
     @Override
     public void update(double dt) {
-        zeit = (int)(zeit+dt);
+        zeit = (zeit+dt);
     }
 }

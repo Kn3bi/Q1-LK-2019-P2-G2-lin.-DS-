@@ -37,6 +37,7 @@ public class Spieler extends GraphicalObject {
 
     @Override
     public void update(double dt) {
+        /**
         if(right){
             x+=speed*dt;
         }
@@ -49,14 +50,14 @@ public class Spieler extends GraphicalObject {
         if(down){
             y+=speed*dt;
         }
-
-
+    */
 
     }
 
     public boolean getLeft(){
         return left;
     }
+
     public boolean getRight(){
         return right;
     }
@@ -64,9 +65,11 @@ public class Spieler extends GraphicalObject {
     public boolean getUp(){
         return up;
     }
+
     public boolean getDown(){
         return down;
     }
+
     public double getX(){
         return x;
     }
@@ -96,5 +99,4 @@ public class Spieler extends GraphicalObject {
             stamina++;
         }
     }
-    
 }

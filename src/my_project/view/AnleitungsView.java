@@ -10,17 +10,15 @@ public class AnleitungsView extends GraphicalObject {
 
     public AnleitungsView(){
         x = 200;
-        y = 100;
+        y = 50;
 
     }
 
+    //TODO Bild als Anleitung
+
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawText(x,y,"Wilkommen! Dies ist ein Fußballspiel.\n" +
-                "Dein Ziel ist es so viele Tore wie möglich zu schießen.\n" +
-                "\n" +
-                "Spieler 1 steuert mit den Tasten W,A,S,D seine Figur \n" +
-                "Spieler 2 seine Figur mit den Pfeiltasten");
+        drawTool.drawText(x,y,"AnleitungsView");
     }
 
     @Override

@@ -9,9 +9,11 @@ public class StartView extends GraphicalObject {
 
     }
 
+    //TODO Starttext als Bild
+
     @Override
     public void draw(DrawTool drawTool) {
-
+        drawTool.drawText(50,100,"StartView");
     }
 
     @Override
