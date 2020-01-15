@@ -31,8 +31,8 @@ public class Spieler extends GraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawFilledCircle(x,y,radius);
-        drawTool.drawImage(player1,200,200);
-        drawTool.drawImage(player2,300,300);
+        drawTool.drawImage(player1,x,y);
+        drawTool.drawImage(player2,x,y);
     }
 
     @Override
@@ -70,7 +70,9 @@ public class Spieler extends GraphicalObject {
     public double getX(){
         return x;
     }
-
+public void setSpeed(){
+        this.speed=speed;
+}
     public int getSpeed() {
         return speed;
     }

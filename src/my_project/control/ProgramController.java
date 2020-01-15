@@ -93,7 +93,7 @@ public class ProgramController {
         pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(),dt);
         pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(),dt);
         if(viewController.isKeyDown(KeyEvent.VK_RIGHT)){
-            mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX()+20*dt);
+            mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX()+mannschaftA.getAktSpieler().getSpeed()*dt);
         }
     }
 
