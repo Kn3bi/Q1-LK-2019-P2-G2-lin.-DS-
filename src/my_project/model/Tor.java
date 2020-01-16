@@ -8,14 +8,15 @@ public class Tor extends GraphicalObject {
 
     private Ball ball;
 
+
     public Tor(Ball ball){
         this.ball = ball;
     }
 
 
 public void draw(DrawTool drawTool){
-        drawTool.drawLine(300,300,300,400);
-        drawTool.drawLine(700,300,700,400);
+        drawTool.drawLine(100,300,100,400);
+        drawTool.drawLine(900,300,900,400);
 }
 
 

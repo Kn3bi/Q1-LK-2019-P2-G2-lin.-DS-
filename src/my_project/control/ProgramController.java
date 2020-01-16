@@ -27,6 +27,7 @@ public class ProgramController {
     private Tor torA;
     private my_project.control.ViewController viewCon;
     private int scene;
+    private boolean endZustand;
 
     /**
      * Konstruktor
@@ -46,6 +47,7 @@ public class ProgramController {
         investoren = new Investoren[2][3];
         viewCon = new my_project.control.ViewController();
         scene = 0;
+        endZustand = false;
 
         //--------------------------------------------------------------------
         fillTeams();
@@ -70,6 +72,7 @@ public class ProgramController {
         viewController.draw(mannschaftB,2);
         viewController.draw(ball,2);
         viewController.draw(torA,2);
+        viewController.draw(viewCon.getEndView(),3);
     }
 
     /**
@@ -90,36 +93,47 @@ public class ProgramController {
                 viewController.showScene(scene);
             }
         }else if (viewController.isKeyDown(KeyEvent.VK_1)){
-            if (scene == 1) {
+            if (scene == 1 || scene == 3) {
                 scene = 0;
+                viewController.showScene(scene);
+            }
+        }else if (endZustand == true){
+            if (scene==2){
+                scene = 3;
                 viewController.showScene(scene);
             }
         }
 
-        bankA.heileDieSpieler();
-        bankB.heileDieSpieler();
-        mannschaftA.auswecheln(bankA.getBank(),bankA);
-        pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(),dt);
-        pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(),dt);
-        if(viewController.isKeyDown(KeyEvent.VK_RIGHT)){
-            mannschaftA.getMannschaft().toFirst();
+        if(scene == 2) {
+            bankA.heileDieSpieler();
+            bankB.heileDieSpieler();
+            mannschaftA.auswecheln(bankA.getBank(), bankA);
+            pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(), dt);
+            pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(), dt);
+            if (viewController.isKeyDown(KeyEvent.VK_RIGHT)) {
+                mannschaftA.getMannschaft().toFirst();
+                mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() + mannschaftA.getAktSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_LEFT)) {
+                mannschaftA.getMannschaft().toFirst();
 
-            mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX()+mannschaftA.getAktSpieler().getSpeed()*dt);
-        }
-        if(viewController.isKeyDown(KeyEvent.VK_LEFT)) {
-            mannschaftA.getMannschaft().toFirst();
+                mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() - mannschaftA.getAktSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_UP)) {
+                mannschaftA.getMannschaft().toFirst();
 
-            mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() - mannschaftA.getAktSpieler().getSpeed() * dt);
-        }
-        if(viewController.isKeyDown(KeyEvent.VK_UP)) {
-            mannschaftA.getMannschaft().toFirst();
+                mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() - mannschaftA.getAktSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_DOWN)) {
+                mannschaftA.getMannschaft().toFirst();
 
-            mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() - mannschaftA.getAktSpieler().getSpeed() * dt);
-        }
-        if(viewController.isKeyDown(KeyEvent.VK_DOWN)) {
-            mannschaftA.getMannschaft().toFirst();
+                mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
+            }
 
-            mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
+            if(viewController.isKeyDown(KeyEvent.VK_W)){
+                mannschaftB.getAktSpieler().setY(mannschaftB.getAktSpieler().getY() - mannschaftB.getAktSpieler().getSpeed()*dt);
+            }
+
         }
     }
 
@@ -140,9 +154,14 @@ public class ProgramController {
         for(int i = 0; i <10;i++){
             if (i < 3){
                 mannschaftA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
-                mannschaftB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
             }else{
                 bankA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+            }
+        }
+        for(int i = 0; i <10;i++){
+            if (i < 3){
+                mannschaftB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+            }else{
                 bankB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
             }
         }
@@ -171,6 +190,7 @@ public class ProgramController {
             m.next();
         }
     }
+
     /**
      *
      * @param spieler ein Spieler,der den Ball wegschießt

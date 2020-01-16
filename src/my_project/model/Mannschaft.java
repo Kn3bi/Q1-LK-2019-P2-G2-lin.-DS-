@@ -50,7 +50,7 @@ public class Mannschaft extends GraphicalObject {
     //TODO Lösche die Konsolenausgabe zur berechnung der Distanz, wenn die Methode fertig ist
     //TODO Jemand muss eindeutig diese Methode überarbeiten, denn Mathe ist schwer mit Kreisen und Pythagoras
     /**
-     * Die Methode
+     * Die Methode dient dazu um zum Spieler zu wechseln der näher am Ball ist.
      */
     public void changePlayer(){
         boolean playerA = false;
@@ -88,7 +88,7 @@ public class Mannschaft extends GraphicalObject {
     }
 
     /**
-     * Die Methode
+     * Die Methode dient zur Auswechslung von Spielern, falls deren Ausdauer unter 0 fallen.
      */
     public void auswecheln(Queue<Spieler> bank, Bank bench){
         mannschaft.toFirst();
@@ -101,4 +101,6 @@ public class Mannschaft extends GraphicalObject {
             mannschaft.next();
         }
     }
+
+
 }
