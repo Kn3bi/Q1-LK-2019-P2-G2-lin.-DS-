@@ -28,6 +28,8 @@ public class ProgramController {
     private my_project.control.ViewController viewCon;
     private int scene;
     private boolean endZustand;
+    private Mannschaft elfmeterA;
+    private Mannschaft elfmeterB;
 
     /**
      * Konstruktor
@@ -42,6 +44,8 @@ public class ProgramController {
         torA = new Tor(ball);
         mannschaftA = new Mannschaft(ball);
         mannschaftB = new Mannschaft(ball);
+        elfmeterA   = new Mannschaft(ball);
+        elfmeterB   = new Mannschaft(ball);
         bankA = new Bank(mannschaftA);
         bankB = new Bank(mannschaftB);
         investoren = new Investoren[2][3];

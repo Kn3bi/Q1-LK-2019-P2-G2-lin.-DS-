@@ -53,6 +53,7 @@ public class Mannschaft extends GraphicalObject {
      * Die Methode dient dazu um zum Spieler zu wechseln der näher am Ball ist.
      */
     public void changePlayer(){
+        boolean elfer   = false;
         boolean playerA = false;
         boolean playerB = false;
         double pA = 0;
@@ -93,6 +94,7 @@ public class Mannschaft extends GraphicalObject {
     public void auswecheln(Queue<Spieler> bank, Bank bench){
         mannschaft.toFirst();
         while (mannschaft.hasAccess()){
+
             if (mannschaft.getContent().getStamina()<=0){
                 bank.enqueue(mannschaft.getContent());
                 mannschaft.remove();
@@ -101,6 +103,7 @@ public class Mannschaft extends GraphicalObject {
             mannschaft.next();
         }
     }
+
 
 
 }
