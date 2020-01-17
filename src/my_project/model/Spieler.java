@@ -13,6 +13,7 @@ public class Spieler extends GraphicalObject {
     private int radius;
     private boolean pic;
     private boolean elfertuechtig;
+    private boolean ingame;
 
     public Spieler(double x, double y){
         player1 = createImage("assets/images/bay.jpg");
@@ -24,6 +25,7 @@ public class Spieler extends GraphicalObject {
         radius = 10;
         pic = false;
         elfertuechtig= false;
+        ingame = false;
 
     }
 
@@ -73,9 +75,17 @@ public class Spieler extends GraphicalObject {
     public int getRadius(){
         return radius;
     }
-    public boolean getElferSchuetze(){
-        return elfertuechtig;
 
+    public boolean getElferSchuetze(){return elfertuechtig; }
+
+    public boolean getIngame() { return ingame; }
+
+    public void setIngame(boolean ingame) {
+        this.ingame = ingame;
+    }
+
+    public void setElfertuechtig(boolean elfertuechtig) {
+        this.elfertuechtig = elfertuechtig;
     }
 
     public void recharge(){
@@ -83,6 +93,8 @@ public class Spieler extends GraphicalObject {
             stamina++;
         }
     }
+
+
 
     public void setPic(boolean pic) {
         this.pic = pic;

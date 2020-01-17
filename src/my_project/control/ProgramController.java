@@ -106,6 +106,11 @@ public class ProgramController {
                 scene = 3;
                 viewController.showScene(scene);
             }
+            if(scene == 3){
+                if(mannschaftA.getAktSpieler().getElferSchuetze() && mannschaftA.getAktSpieler().getIngame()){
+                    elfmeterA.fillTheTeam(mannschaftA.getAktSpieler());
+                }
+            }
         }
 
         if(scene == 2) {
@@ -192,6 +197,13 @@ public class ProgramController {
         while(m.hasAccess()){
             schussKollision(m.getContent(),ball,dt);
             m.next();
+        }
+    }
+    public void setzeElfmeterSchuetze(List<Spieler>e,double dt){
+            e.toFirst();
+        if(mannschaftA.getAktSpieler().getStamina()>50 && mannschaftA.getAktSpieler().getIngame() ){
+            mannschaftA.getAktSpieler().setElfertuechtig(true);
+
         }
     }
 
