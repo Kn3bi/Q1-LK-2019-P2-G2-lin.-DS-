@@ -12,6 +12,7 @@ public class Spieler extends GraphicalObject {
     private int stamina;
     private int radius;
     private boolean pic;
+    private boolean elfertuechtig;
 
     public Spieler(double x, double y){
         player1 = createImage("assets/images/bay.jpg");
@@ -22,6 +23,7 @@ public class Spieler extends GraphicalObject {
         this.y = y;
         radius = 10;
         pic = false;
+        elfertuechtig= false;
 
     }
 
@@ -70,6 +72,9 @@ public class Spieler extends GraphicalObject {
 
     public int getRadius(){
         return radius;
+    }
+    public boolean getElferSchuetze(){
+
     }
 
     public void recharge(){
