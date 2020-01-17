@@ -11,7 +11,7 @@ public class Ball extends GraphicalObject {
     public Ball(double x,double y){
         this.x = x;
         this.y = y;
-        radius = 20;
+        radius = 60;
         vx=0;
         vy=0;
     }

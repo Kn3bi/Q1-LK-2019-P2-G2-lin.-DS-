@@ -1,22 +1,21 @@
 package my_project.control;
 
 import KAGO_framework.view.DrawTool;
-import my_project.view.AnleitungsView;
-import my_project.view.SpielView;
-import my_project.view.StartView;
-import my_project.view.ZeitView;
+import my_project.view.*;
 
 public class ViewController {
     private AnleitungsView anleitungsV;
     private SpielView spielV;
     private StartView startV;
     private ZeitView zeitV;
+    private EndeView endView;
 
     public ViewController(){
         anleitungsV = new AnleitungsView();
         spielV = new SpielView();
         startV = new StartView();
         zeitV = new ZeitView();
+        endView = new EndeView();
     }
 
     public SpielView getSpielV() {
@@ -33,5 +32,9 @@ public class ViewController {
 
     public ZeitView getZeitV() {
         return zeitV;
+    }
+
+    public EndeView getEndView() {
+        return endView;
     }
 }

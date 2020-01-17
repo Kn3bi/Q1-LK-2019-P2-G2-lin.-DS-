@@ -11,10 +11,7 @@ public class Spieler extends GraphicalObject {
     private int speed;
     private int stamina;
     private int radius;
-    private boolean left;
-    private boolean right;
-    private boolean up;
-    private boolean down;
+    private boolean pic;
 
     public Spieler(double x, double y){
         player1 = createImage("assets/images/bay.jpg");
@@ -24,50 +21,25 @@ public class Spieler extends GraphicalObject {
         this.x = x;
         this.y = y;
         radius = 10;
-
+        pic = false;
 
     }
 
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawFilledCircle(x,y,radius);
-        drawTool.drawImage(player1,x,y);
-        drawTool.drawImage(player2,x,y);
+        //drawTool.drawImage(player1,x,y);
+        //drawTool.drawImage(player2,x,y);
+        if (pic == false){
+            drawTool.drawImage(player1,x,y);
+        }else{
+            drawTool.drawImage(player2,x,y);
+        }
     }
 
     @Override
     public void update(double dt) {
-        /**
-        if(right){
-            x+=speed*dt;
-        }
-        if(left){
-            x-=speed*dt;
-        }
-        if(up){
-            y-=speed*dt;
-        }
-        if(down){
-            y+=speed*dt;
-        }
-    */
 
-    }
-
-    public boolean getLeft(){
-        return left;
-    }
-
-    public boolean getRight(){
-        return right;
-    }
-
-    public boolean getUp(){
-        return up;
-    }
-
-    public boolean getDown(){
-        return down;
     }
 
     public double getX(){
@@ -79,9 +51,15 @@ public class Spieler extends GraphicalObject {
         super.setX(x);
     }
 
+    @Override
+    public void setY(double y) {
+        super.setY(y);
+    }
+
     public void setSpeed(){
         this.speed=speed;
 }
+
     public int getSpeed() {
         return speed;
     }
@@ -98,5 +76,9 @@ public class Spieler extends GraphicalObject {
         if (stamina>100 ||stamina != 100){
             stamina++;
         }
+    }
+
+    public void setPic(boolean pic) {
+        this.pic = pic;
     }
 }
