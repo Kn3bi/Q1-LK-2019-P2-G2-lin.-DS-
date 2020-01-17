@@ -15,7 +15,7 @@ public class Spieler extends GraphicalObject {
     private boolean elfertuechtig;
     private boolean ingame;
 
-    public Spieler(double x, double y){
+    public Spieler(double x, double y, boolean teamA){
         player1 = createImage("assets/images/bay.jpg");
         player2 = createImage("assets/images/th.jpg");
         speed = (int)(Math.random()*10+100);
@@ -23,7 +23,7 @@ public class Spieler extends GraphicalObject {
         this.x = x;
         this.y = y;
         radius = 10;
-        pic = false;
+        pic = teamA;
         elfertuechtig= false;
         ingame = false;
 

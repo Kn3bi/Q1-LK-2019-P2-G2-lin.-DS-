@@ -9,13 +9,11 @@ public class Bank {
     private Queue<Spieler> bank;
     private Mannschaft mannschaft;
     private int anzahlSpieler;
-    private Stack<Spieler> elfMeterTruppe;
 
     public Bank(Mannschaft mannschaft){
        bank = new Queue<>();
        this.mannschaft = mannschaft;
        anzahlSpieler = 0;
-       elfMeterTruppe = new Stack<>();
     }
 
     /**
@@ -25,9 +23,6 @@ public class Bank {
     public void fillTheTeam(Spieler spieler){
         bank.enqueue(spieler);
         anzahlSpieler++;
-        if (anzahlSpieler != 5){
-            elfMeterTruppe.push(spieler);
-        }
     }
 
     public Spieler getAktSpieler(){

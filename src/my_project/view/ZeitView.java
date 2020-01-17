@@ -20,4 +20,8 @@ public class ZeitView extends GraphicalObject {
     public void update(double dt) {
         zeit = (zeit+dt);
     }
+
+    public double getZeit() {
+        return zeit;
+    }
 }

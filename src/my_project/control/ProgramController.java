@@ -61,6 +61,7 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         viewController.createScene();
+        viewController.createScene();
         viewController.showScene(scene);
     }
 
@@ -76,7 +77,10 @@ public class ProgramController {
         viewController.draw(mannschaftB,2);
         viewController.draw(ball,2);
         viewController.draw(torA,2);
-        viewController.draw(viewCon.getEndView(),3);
+        viewController.draw(viewCon.getSpielV(),3);
+        //viewController.draw(elfmeterA,3);
+        //viewController.draw(elfmeterB,3);
+        viewController.draw(viewCon.getEndView(),4);
     }
 
     /**
@@ -101,15 +105,15 @@ public class ProgramController {
                 scene = 0;
                 viewController.showScene(scene);
             }
-        }else if (endZustand == true){
-            if (scene==2){
+        }else if (viewCon.getZeitV().getZeit()>30){
+            if (scene == 2) {
                 scene = 3;
                 viewController.showScene(scene);
             }
-            if(scene == 3){
-                if(mannschaftA.getAktSpieler().getElferSchuetze() && mannschaftA.getAktSpieler().getIngame()){
-                    elfmeterA.fillTheTeam(mannschaftA.getAktSpieler());
-                }
+        }else if (endZustand){
+            if (scene==2 || scene == 3){
+                scene = 4;
+                viewController.showScene(scene);
             }
         }
 
@@ -162,16 +166,16 @@ public class ProgramController {
     public void fillTeams(){
         for(int i = 0; i <10;i++){
             if (i < 3){
-                mannschaftA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+                mannschaftA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,true));
             }else{
-                bankA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+                bankA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,true));
             }
         }
         for(int i = 0; i <10;i++){
             if (i < 3){
-                mannschaftB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+                mannschaftB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,false));
             }else{
-                bankB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10));
+                bankB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,false));
             }
         }
     }
