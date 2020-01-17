@@ -22,6 +22,8 @@ public class Elfmeter extends GraphicalObject {
 
     }
     public void fuelleElfmeterTeam(Spieler spieler){
-        if(spieler.)
+        if(spieler.getElferSchuetze()==true){
+            elfmeter.push(spieler);
+        }
     }
 }

@@ -74,6 +74,7 @@ public class Spieler extends GraphicalObject {
         return radius;
     }
     public boolean getElferSchuetze(){
+        return elfertuechtig;
 
     }
 
