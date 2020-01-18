@@ -220,17 +220,18 @@ public class ProgramController {
      */
     public void schussKollision(Spieler spieler,Ball ball,double dt){
         // Der Abstand in X-(horizontal) und Y-Richtung(vertikal) wird festgelegt
-        double dx=spieler.getX()-ball.getX();
-        double dy=spieler.getY()-ball.getY();
+        double dx=(spieler.getX()+55)-ball.getX();
+        double dy=(spieler.getY()+55)-ball.getY();
         //Die Hypothenuse des rechtwinkligen Dreiecks mit dx und dy als Katheten widr festgelegt
         double hypothenuse=Math.sqrt(Math.pow(dx,2)+ Math.pow(dy,2));
         //Die Radien der Kreisobjekte werden festgelegt
-        double rs=spieler.getWidth();
-        double rb=ball.getWidth();
+        double rs=spieler.getRadius();
+        double rb=ball.getRadius();
+
         //Falls Objekte sich berühren, berechne für X und Y Richtung die neuen GEschwindigkeiten,
         // falls die Hypothnuse den Wert 1 hätte und
         // man diese mit der Geschwindigkeit des Spielers(und mehr) verfielfachen würde
-        if(hypothenuse<(rb+rs)/2){
+        if(hypothenuse<((rb+rs)/2)){
             ball.setVx(-dx/hypothenuse*spieler.getSpeed()*1.5);
             ball.setVy(-dy/hypothenuse*spieler.getSpeed()*1.5);
         }else {
@@ -238,10 +239,10 @@ public class ProgramController {
             // Hier müssen die Fälle beachtet werden,
             // dass die Gerschwindigkeit, je nach Richtung, negativ sein kann.
             if(ball.getVx()!=0) {
-                ball.setVx(ball.getVx() - 20 * ball.getVx() / Math.abs(ball.getVx())* dt);
+                ball.setVx(ball.getVx() - 10 * ball.getVx() / Math.abs(ball.getVx())* dt);
             }
             if(ball.getVy()!=0) {
-                ball.setVy(ball.getVy() - 20 * ball.getVy() / Math.abs(ball.getVy())* dt );
+                ball.setVy(ball.getVy() - 10 * ball.getVy() / Math.abs(ball.getVy())* dt );
             }
         }
 

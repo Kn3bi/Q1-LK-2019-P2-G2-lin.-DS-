@@ -22,7 +22,7 @@ public class Spieler extends GraphicalObject {
         stamina = 100;
         this.x = x;
         this.y = y;
-        radius = 10;
+        radius = 160;
         pic = teamA;
         elfertuechtig= false;
         ingame = false;
@@ -31,7 +31,6 @@ public class Spieler extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawFilledCircle(x,y,radius);
         //drawTool.drawImage(player1,x,y);
         //drawTool.drawImage(player2,x,y);
         if (pic == false){
@@ -39,6 +38,8 @@ public class Spieler extends GraphicalObject {
         }else{
             drawTool.drawImage(player2,x,y);
         }
+        drawTool.drawCircle(x,y,radius);
+
     }
 
     @Override
