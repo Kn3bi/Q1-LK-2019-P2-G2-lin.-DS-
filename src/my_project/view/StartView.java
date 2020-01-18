@@ -3,17 +3,21 @@ package my_project.view;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 
+import java.awt.image.BufferedImage;
+
 public class StartView extends GraphicalObject {
 
+    private BufferedImage bild;
+
     public StartView(){
-
+        bild = createImage("assets/images/StartBild.png");
+        x = 0;
+        y= 0;
     }
-
-    //TODO Starttext als Bild
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawText(50,100,"StartView");
+        drawTool.drawImage(bild,x,y);
     }
 
     @Override

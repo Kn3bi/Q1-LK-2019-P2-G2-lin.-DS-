@@ -31,9 +31,8 @@ public class Spieler extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        //drawTool.drawImage(player1,x,y);
-        //drawTool.drawImage(player2,x,y);
-        if (pic == false){
+        drawTool.drawFilledCircle(x,y,radius);
+        if (!pic){
             drawTool.drawImage(player1,x,y);
         }else{
             drawTool.drawImage(player2,x,y);
@@ -61,7 +60,7 @@ public class Spieler extends GraphicalObject {
         super.setY(y);
     }
 
-    public void setSpeed(){
+    public void setSpeed(int speed){
         this.speed=speed;
 }
 
@@ -89,15 +88,12 @@ public class Spieler extends GraphicalObject {
         this.elfertuechtig = elfertuechtig;
     }
 
+    /**
+     * Die Methode dient zur Auffüllung der Ausdauer. Wenn diese unter 100 ist soll sie um eins erhöht werden.
+     */
     public void recharge(){
-        if (stamina>100 ||stamina != 100){
+        if (stamina<100){
             stamina++;
         }
-    }
-
-
-
-    public void setPic(boolean pic) {
-        this.pic = pic;
     }
 }

@@ -46,15 +46,12 @@ public class Mannschaft extends GraphicalObject {
         return mannschaft.getContent();
     }
 
-    //changePlayer ist orientiert an getDistanceTo(GraphicalObject gO)
     /**
      * Die Methode dient dazu um zum Spieler zu wechseln der näher am Ball ist.
      * Die Methode setzt den aktuellen Spieler der Liste(current)
-     * auf den Spieler, der am nährsten zum Ball ist
+     * auf den Spieler, der am nächsten zum Ball ist
      */
-
     public void changePlayer(){
-        boolean elfer   = false;
         boolean playerA = false;
         boolean playerB = false;
         double pA = 0;
@@ -97,7 +94,6 @@ public class Mannschaft extends GraphicalObject {
     public void auswecheln(Queue<Spieler> bank, Bank bench){
         mannschaft.toFirst();
         while (mannschaft.hasAccess()){
-
             if (mannschaft.getContent().getStamina()<=0){
                 bank.enqueue(mannschaft.getContent());
                 mannschaft.remove();
@@ -106,7 +102,4 @@ public class Mannschaft extends GraphicalObject {
             mannschaft.next();
         }
     }
-
-
-
 }

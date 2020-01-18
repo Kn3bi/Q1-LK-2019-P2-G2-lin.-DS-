@@ -18,9 +18,11 @@ public class Elfmeter extends GraphicalObject {
     public void draw(DrawTool drawTool){
 
     }
+
     public void update(double dt){
 
     }
+
     public void fuelleElfmeterTeam(Spieler spieler){
         if(spieler.getElferSchuetze()==true){
             elfmeter.push(spieler);

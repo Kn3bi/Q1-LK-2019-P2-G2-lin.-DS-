@@ -8,8 +8,4 @@ public class Investoren {
         this.mannschaftA = mannschaftA;
         this.mannschaftB = mannschaftB;
     }
-
-    public void verbesserDieSpieler(){
-
-    }
 }

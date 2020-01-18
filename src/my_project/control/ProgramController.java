@@ -31,6 +31,7 @@ public class ProgramController {
     private Mannschaft elfmeterA;
     private Mannschaft elfmeterB;
 
+
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -40,7 +41,7 @@ public class ProgramController {
      */
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
-        ball = new Ball(200, 200);
+        ball = new Ball(70, 350);
         torA = new Tor(ball);
         mannschaftA = new Mannschaft(ball);
         mannschaftB = new Mannschaft(ball);
@@ -52,6 +53,7 @@ public class ProgramController {
         viewCon = new my_project.control.ViewController();
         scene = 0;
         endZustand = false;
+
 
         //--------------------------------------------------------------------
         fillTeams();
@@ -144,9 +146,21 @@ public class ProgramController {
             }
 
             if(viewController.isKeyDown(KeyEvent.VK_W)){
+                mannschaftB.getMannschaft().toFirst();
                 mannschaftB.getAktSpieler().setY(mannschaftB.getAktSpieler().getY() - mannschaftB.getAktSpieler().getSpeed()*dt);
             }
-
+            if (viewController.isKeyDown(KeyEvent.VK_D)) {
+                mannschaftB.getMannschaft().toFirst();
+                mannschaftB.getAktSpieler().setX(mannschaftB.getAktSpieler().getX() + mannschaftB.getAktSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_A)) {
+                mannschaftB.getMannschaft().toFirst();
+                mannschaftB.getAktSpieler().setX(mannschaftB.getAktSpieler().getX() - mannschaftB.getAktSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_S)) {
+                mannschaftB.getMannschaft().toFirst();
+                mannschaftB.getAktSpieler().setY(mannschaftB.getAktSpieler().getY() + mannschaftB.getAktSpieler().getSpeed() * dt);
+            }
         }
     }
 
@@ -183,10 +197,10 @@ public class ProgramController {
     /**
      * Die Methode dient zur auffüllung des Investoren-Arrays.
      */
-    public void fillInvestors(){
-        for (int i = 0; i<investoren.length;i++){
-            for (int j = 0; j < investoren[i].length;j++){
-                investoren[i][j] = new Investoren(mannschaftA,mannschaftB);
+    public void fillInvestors() {
+        for (int i = 0; i < investoren.length; i++) {
+            for (int j = 0; j < investoren[i].length; j++) {
+                investoren[i][j] = new Investoren(mannschaftA, mannschaftB);
             }
         }
     }
@@ -203,6 +217,13 @@ public class ProgramController {
             m.next();
         }
     }
+
+    /**
+     *
+     * @param e
+     * @param dt
+     */
+
     public void setzeElfmeterSchuetze(List<Spieler>e,double dt){
             e.toFirst();
         if(mannschaftA.getAktSpieler().getStamina()>50 && mannschaftA.getAktSpieler().getIngame() ){

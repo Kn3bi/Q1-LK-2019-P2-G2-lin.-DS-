@@ -6,19 +6,18 @@ import KAGO_framework.view.DrawTool;
 import java.awt.image.BufferedImage;
 
 public class AnleitungsView extends GraphicalObject {
-    private BufferedImage feld;
+    private BufferedImage anleitung;
 
     public AnleitungsView(){
-        x = 200;
-        y = 50;
-
+        x = 0;
+        y = 0;
+        anleitung = createImage("assets/images/anleitungsBild.png");
     }
 
-    //TODO Bild als Anleitung
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawText(x,y,"AnleitungsView");
+        drawTool.drawImage(anleitung,x,y);
     }
 
     @Override

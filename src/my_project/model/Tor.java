@@ -14,15 +14,14 @@ public class Tor extends GraphicalObject {
     }
 
 
-public void draw(DrawTool drawTool){
+    public void draw(DrawTool drawTool){
         drawTool.drawLine(100,300,100,400);
         drawTool.drawLine(900,300,900,400);
 }
 
 
-public void update(double dt){
+    public void update(double dt){
 
 
 }
-
 }
