@@ -23,6 +23,10 @@ public class Elfmeter extends GraphicalObject {
 
     }
 
+    /**
+     * In dieser Methode werden die Spieler in dasStack gepackt, falls deren Attribut true ist.
+     * @param spieler
+     */
     public void fuelleElfmeterTeam(Spieler spieler){
         if(spieler.getElferSchuetze()==true){
             elfmeter.push(spieler);

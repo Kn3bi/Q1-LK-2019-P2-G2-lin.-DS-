@@ -16,11 +16,19 @@ public class Ball extends GraphicalObject {
         vy=0;
     }
 
+    /**
+     * Dient zum zeichnen des Balles
+     * @param drawTool Zum zeichnen da
+     */
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawFilledCircle(x,y,radius);
     }
 
+    /**
+     * dient zur bewegen des Balles
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     */
     @Override
     public void update(double dt) {
         x=x+vx*dt;

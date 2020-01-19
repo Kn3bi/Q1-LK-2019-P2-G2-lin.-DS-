@@ -14,12 +14,19 @@ public class SpielView extends GraphicalObject {
 
     }
 
+    /**
+     * zeichnet das Spielfeld
+     * @param drawTool
+     */
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawImage(feld,0,0);
 
     }
 
+    /**
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     */
     @Override
     public void update(double dt) {
 

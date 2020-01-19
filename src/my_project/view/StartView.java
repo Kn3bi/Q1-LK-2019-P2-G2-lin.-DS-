@@ -15,11 +15,18 @@ public class StartView extends GraphicalObject {
         y= 0;
     }
 
+    /**
+     * zeichnet den Startbildschirm
+     * @param drawTool
+     */
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawImage(bild,x,y);
     }
 
+    /**
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     */
     @Override
     public void update(double dt) {
 

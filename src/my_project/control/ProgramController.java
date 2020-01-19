@@ -30,6 +30,7 @@ public class ProgramController {
     private boolean endZustand;
     private Mannschaft elfmeterA;
     private Mannschaft elfmeterB;
+    private int anzahlToreA,anzahlToreB;
 
 
     /**
@@ -53,7 +54,8 @@ public class ProgramController {
         viewCon = new my_project.control.ViewController();
         scene = 0;
         endZustand = false;
-
+        anzahlToreA = 0;
+        anzahlToreB = 0;
 
         //--------------------------------------------------------------------
         fillTeams();
@@ -94,7 +96,6 @@ public class ProgramController {
         if (viewController.isKeyDown(KeyEvent.VK_0)){
             if (scene == 0){
                 scene = 1;
-                System.out.println(scene);
                 viewController.showScene(scene);
             }
         }else if (viewController.isKeyDown(KeyEvent.VK_9)){
@@ -103,12 +104,12 @@ public class ProgramController {
                 viewController.showScene(scene);
             }
         }else if (viewController.isKeyDown(KeyEvent.VK_1)){
-            if (scene == 1 || scene == 3) {
+            if (scene == 1 || scene == 4) {
                 scene = 0;
                 viewController.showScene(scene);
             }
-        }else if (viewCon.getZeitV().getZeit()>30){
-            if (scene == 2) {
+        }else if (viewCon.getZeitV().getZeit()>30 && anzahlToreA == anzahlToreB){
+            if (scene == 2 ) {
                 scene = 3;
                 viewController.showScene(scene);
             }
@@ -116,7 +117,18 @@ public class ProgramController {
             if (scene==2 || scene == 3){
                 scene = 4;
                 viewController.showScene(scene);
+                if(anzahlToreA> anzahlToreB){
+                    viewCon.getEndView().setSiegerSituation("Sieger ist Spieler A");
+                }else if (anzahlToreA < anzahlToreB){
+                    viewCon.getEndView().setSiegerSituation("Sieger ist Spieler B");
+                }else{
+                    viewCon.getEndView().setSiegerSituation("Unentschieden");
+                }
             }
+        }
+
+        if (viewCon.getZeitV().getZeit()>30 && anzahlToreA != anzahlToreB){
+            endZustand = true;
         }
 
         if(scene == 2) {
@@ -206,7 +218,8 @@ public class ProgramController {
     }
 
     /**
-     *
+     *Die Methode prüft, ob ein Spieler aus eiener Mannschaft mit dem Ball kollidiert.
+     * Dies wird mit jedem Spieler der AMnnschaft gemacht.
      * @param m die übergebene MAnnschaft, deren alle Spieler auf eine BAllkollision überprüft werden
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
@@ -219,11 +232,11 @@ public class ProgramController {
     }
 
     /**
-     *
-     * @param e
-     * @param dt
+     *In dieser Methode wird geschaut,ob ein Spieler,der sich im Spiel befindet als Elfmeterspieler eignet.
+     * Falls dies der Fall ist, wird das Attribut auf true gesetzt.
+     * @param e eine Liste, die Spieler beinhaltet
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
-
     public void setzeElfmeterSchuetze(List<Spieler>e,double dt){
             e.toFirst();
         if(mannschaftA.getAktSpieler().getStamina()>50 && mannschaftA.getAktSpieler().getIngame() ){

@@ -11,14 +11,22 @@ public class ZeitView extends GraphicalObject {
         zeit = 0;
     }
 
+    /***
+     * zeichnet deie Zeitanzeige
+     * @param drawTool
+     */
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawText(900,100,""+zeit);
+        drawTool.drawText(900,100,""+((int)zeit));
     }
 
+    /**
+     * Zeit soll erhöht werden
+     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
+     */
     @Override
     public void update(double dt) {
-        zeit = (zeit+dt);
+        zeit = zeit+dt;
     }
 
     public double getZeit() {

@@ -7,9 +7,14 @@ public class EndeView extends GraphicalObject {
 
     private String siegerSituation;
 
+    /**
+     * zeichnet den Endtext
+     * @param drawTool
+     */
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawText(300,200,siegerSituation);
+        drawTool.drawText(300,400,"Zum zurückkehren drücke die Taste 1");
     }
 
     @Override
