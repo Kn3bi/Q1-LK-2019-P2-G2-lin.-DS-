@@ -1,8 +1,9 @@
 package my_project.model;
 
-import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
-import KAGO_framework.view.DrawTool;
+import KAGO_framework.view.*;
+import my_project.model.Ball;
+import my_project.model.Enemy;
 
 public class Mannschaft2 {
     private Ball ball;
@@ -13,7 +14,7 @@ public class Mannschaft2 {
         this.ball = ball;
     }
     public void draw(DrawTool drawTool) {
-
+mannschaftE.front();
         while(!mannschaftE.isEmpty()){
             mannschaftE.front().draw(drawTool);
             mannschaftE.dequeue();
@@ -21,5 +22,12 @@ public class Mannschaft2 {
     }
     public void fuelleEnemies(Enemy enemy){
         mannschaftE.enqueue(enemy);
+    }
+    public void changeSpieler() {
+        double midXBall = ball.getX();
+        double midYBall = ball.getY();
+    }
+        public Enemy aktuSpieler(){
+        return mannschaftE.front();
     }
 }

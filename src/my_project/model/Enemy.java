@@ -1,7 +1,7 @@
 package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
-import KAGO_framework.view.DrawTool;
+import KAGO_framework.view.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -38,7 +38,7 @@ public class Enemy extends GraphicalObject {
         drawTool.drawImage(player2,x,y);
 
 
-        drawTool.drawCircle(x,y,radius);
+
 
     }
 

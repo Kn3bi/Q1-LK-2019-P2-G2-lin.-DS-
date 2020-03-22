@@ -1,5 +1,6 @@
 package my_project.control;
 
+import KAGO_framework.control.Drawable;
 import KAGO_framework.control.ViewController;
 import my_project.model.*;
 
@@ -19,7 +20,7 @@ public class ProgramController {
     // Referenzen
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     private Mannschaft mannschaftA;
-
+    private Mannschaft2 mannschaftE;
     private Bank bankA;
 
 
@@ -27,12 +28,8 @@ public class ProgramController {
     private my_project.control.ViewController viewCon;
     private int scene;
     private boolean endZustand;
-    private Mannschaft elfmeterA;
-    private Mannschaft elfmeterB;
-    private int anzahlToreA,anzahlToreB;
     private int points1;
     private boolean puante;
-    private int agencyLength;
     private int[][] agencyy = new int [3][3] ;
     private boolean gol= false;
 
@@ -49,15 +46,14 @@ public class ProgramController {
         viewController.getSoundController().loadSound("assets/images/op1.wav","game",true);
 
         mannschaftA = new Mannschaft(ball);
+        mannschaftE = new Mannschaft2(ball);
 
-        bankA = new Bank(mannschaftA);
+
 
 
         viewCon = new my_project.control.ViewController();
         scene = 0;
         endZustand = false;
-        anzahlToreA = 0;
-        anzahlToreB = 0;
         agencyy[0][0]= 10;
         agencyy[0][1]= 3;
         agencyy[0][2]= 4;
@@ -68,6 +64,7 @@ public class ProgramController {
         fillTeam();
 
         mannschaftA.changePlayer();
+        mannschaftE.changeSpieler();
         viewController.createScene();
         viewController.createScene();
         viewController.createScene();
@@ -102,11 +99,12 @@ public class ProgramController {
         viewController.draw(viewCon.getSpielV(),2);
         viewController.draw(viewCon.getZeitV(),2);
         viewController.draw(mannschaftA,2);
+        viewController.draw( mannschaftE,2);
 
         viewController.draw(ball,2);
 
         viewController.draw(viewCon.getSpielV(),3);
-        viewController.draw(elfmeterA,3);
+
 
         viewController.draw(viewCon.getEndView(),4);
 
@@ -156,8 +154,7 @@ public class ProgramController {
                 viewController.showScene(scene);
                 if(points1 == 3){
                     System.out.println("Spieler 1 gewinnt, Ruffys tipico schein ist nicht aufgegangen");
-                }else if (anzahlToreA < anzahlToreB){
-                    System.out.println("Sieger ist Spieler B Ruffys TIpico Schein ist nicht aufgegangen");
+
                 }else{
                     viewCon.getEndView().setSiegerSituation("Unentschieden");
                 }
@@ -198,7 +195,18 @@ public class ProgramController {
 
                 mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
             }
-
+            if (viewController.isKeyDown(KeyEvent.VK_W)) {
+                mannschaftE.aktuSpieler().setY(mannschaftE.aktuSpieler().getY() - mannschaftE.aktuSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_S)) {
+                mannschaftE.aktuSpieler().setY(mannschaftE.aktuSpieler().getY() + mannschaftE.aktuSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_A)) {
+                mannschaftE.aktuSpieler().setX(mannschaftE.aktuSpieler().getX() - mannschaftE.aktuSpieler().getSpeed() * dt);
+            }
+            if (viewController.isKeyDown(KeyEvent.VK_D)) {
+                mannschaftE.aktuSpieler().setX(mannschaftE.aktuSpieler().getX() + mannschaftE.aktuSpieler().getSpeed() * dt);
+            }
 
         }
     }
@@ -217,14 +225,15 @@ public class ProgramController {
      * Die Methode dient zur auffüllung der Bänke und der Mannschaften.
      */
     public void fillTeam(){
-        for(int i = 0; i <10;i++){
-            if (i < 3){
-                mannschaftA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,true));
-            }else{
-                bankA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,true));
-            }
+        for(int i = 0; i <3;i++) {
+
+            mannschaftA.fillTheTeam(new Spieler(Math.random() * 300 + 10, Math.random() * 100 + 10, true));
         }
 
+            for (int j = 0; j < 3; j++) {
+                mannschaftE.fuelleEnemies(new Enemy(Math.random() * 600 + 30, Math.random() * 300 + 20, true));
+
+        }
 
         }
 
