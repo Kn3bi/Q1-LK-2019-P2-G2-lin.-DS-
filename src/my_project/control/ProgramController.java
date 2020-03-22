@@ -19,19 +19,22 @@ public class ProgramController {
     // Referenzen
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     private Mannschaft mannschaftA;
-    private Mannschaft mannschaftB;
+
     private Bank bankA;
-    private Bank bankB;
-    private Investoren[][] investoren;
+
+
     private Ball ball;
-    private Tor torA;
     private my_project.control.ViewController viewCon;
     private int scene;
     private boolean endZustand;
     private Mannschaft elfmeterA;
     private Mannschaft elfmeterB;
     private int anzahlToreA,anzahlToreB;
-
+    private int points1;
+    private boolean puante;
+    private int agencyLength;
+    private int[][] agencyy = new int [3][3] ;
+    private boolean gol= false;
 
     /**
      * Konstruktor
@@ -43,23 +46,27 @@ public class ProgramController {
     public ProgramController(ViewController ViewController){
         this.viewController = ViewController;
         ball = new Ball(70, 350);
-        torA = new Tor(ball);
+        viewController.getSoundController().loadSound("assets/images/op1.wav","game",true);
+
         mannschaftA = new Mannschaft(ball);
-        mannschaftB = new Mannschaft(ball);
-        elfmeterA   = new Mannschaft(ball);
-        elfmeterB   = new Mannschaft(ball);
+
         bankA = new Bank(mannschaftA);
-        bankB = new Bank(mannschaftB);
-        investoren = new Investoren[2][3];
+
+
         viewCon = new my_project.control.ViewController();
         scene = 0;
         endZustand = false;
         anzahlToreA = 0;
         anzahlToreB = 0;
-
+        agencyy[0][0]= 10;
+        agencyy[0][1]= 3;
+        agencyy[0][2]= 4;
+        agencyy[1][1]= 6;
+        agencyy[2][1] = 3;
+        agencyy[2][2] = 10;
         //--------------------------------------------------------------------
-        fillTeams();
-        fillInvestors();
+        fillTeam();
+
         mannschaftA.changePlayer();
         viewController.createScene();
         viewController.createScene();
@@ -73,18 +80,36 @@ public class ProgramController {
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
+        for(int i = 0;i<3;i++){
+            for(int j=  0 ;j<3;j++){
+                System.out.println(agencyy[i][j]);
+            }
+        }
+        if(gol){
+            for(int i = 0;i<(int)(Math.random()*2);i++) {
+                for (int j = 0; j < (int) (Math.random() * 2); j++) {
+                    if ((int) (Math.random() * 7) == agencyy[i][j]) {
+                        points1+= agencyy[i][j];
+                        endZustand = true;
+                    }
+                }
+
+            }
+        }
+
         viewController.draw(viewCon.getStartV(),0);
         viewController.draw(viewCon.getAnleitungsV(),1);
         viewController.draw(viewCon.getSpielV(),2);
         viewController.draw(viewCon.getZeitV(),2);
         viewController.draw(mannschaftA,2);
-        viewController.draw(mannschaftB,2);
+
         viewController.draw(ball,2);
-        viewController.draw(torA,2);
+
         viewController.draw(viewCon.getSpielV(),3);
-        //viewController.draw(elfmeterA,3);
-        //viewController.draw(elfmeterB,3);
+        viewController.draw(elfmeterA,3);
+
         viewController.draw(viewCon.getEndView(),4);
+
     }
 
     /**
@@ -93,6 +118,22 @@ public class ProgramController {
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
     public void updateProgram(double dt){
+        if(gol){
+            for(int i = 0;i<(int)(Math.random()*2);i++) {
+                for (int j = 0; j < (int) (Math.random() * 2); j++) {
+                    if ((int) (Math.random() * 7) == agencyy[i][j]) {
+                        points1+= agencyy[i][j];
+                    }
+                }
+
+            }
+        }
+        if(gol&& !endZustand) {
+            System.out.println(points1 + "   Pünktchen");
+        }
+
+
+
         if (viewController.isKeyDown(KeyEvent.VK_0)){
             if (scene == 0){
                 scene = 1;
@@ -108,35 +149,36 @@ public class ProgramController {
                 scene = 0;
                 viewController.showScene(scene);
             }
-        }else if (viewCon.getZeitV().getZeit()>30 && anzahlToreA == anzahlToreB){
-            if (scene == 2 ) {
-                scene = 3;
-                viewController.showScene(scene);
-            }
+
         }else if (endZustand){
             if (scene==2 || scene == 3){
                 scene = 4;
                 viewController.showScene(scene);
-                if(anzahlToreA> anzahlToreB){
-                    viewCon.getEndView().setSiegerSituation("Sieger ist Spieler A");
+                if(points1 == 3){
+                    System.out.println("Spieler 1 gewinnt, Ruffys tipico schein ist nicht aufgegangen");
                 }else if (anzahlToreA < anzahlToreB){
-                    viewCon.getEndView().setSiegerSituation("Sieger ist Spieler B");
+                    System.out.println("Sieger ist Spieler B Ruffys TIpico Schein ist nicht aufgegangen");
                 }else{
                     viewCon.getEndView().setSiegerSituation("Unentschieden");
                 }
             }
         }
 
-        if (viewCon.getZeitV().getZeit()>30 && anzahlToreA != anzahlToreB){
-            endZustand = true;
-        }
+
+
 
         if(scene == 2) {
-            bankA.heileDieSpieler();
-            bankB.heileDieSpieler();
-            mannschaftA.auswecheln(bankA.getBank(), bankA);
+            viewController.getSoundController().playSound("game");
+
+
+            if (viewController.isKeyDown(KeyEvent.VK_S)) {
+                mannschaftA.delete(mannschaftA.getAktSpieler());
+            }
             pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(), dt);
-            pruefeSchussFuerAlleSpieler(mannschaftB.getMannschaft(), dt);
+            SiegesKollision();
+            if(points1==3){
+                endZustand = true;
+            }
             if (viewController.isKeyDown(KeyEvent.VK_RIGHT)) {
                 mannschaftA.getMannschaft().toFirst();
                 mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() + mannschaftA.getAktSpieler().getSpeed() * dt);
@@ -157,22 +199,7 @@ public class ProgramController {
                 mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
             }
 
-            if(viewController.isKeyDown(KeyEvent.VK_W)){
-                mannschaftB.getMannschaft().toFirst();
-                mannschaftB.getAktSpieler().setY(mannschaftB.getAktSpieler().getY() - mannschaftB.getAktSpieler().getSpeed()*dt);
-            }
-            if (viewController.isKeyDown(KeyEvent.VK_D)) {
-                mannschaftB.getMannschaft().toFirst();
-                mannschaftB.getAktSpieler().setX(mannschaftB.getAktSpieler().getX() + mannschaftB.getAktSpieler().getSpeed() * dt);
-            }
-            if (viewController.isKeyDown(KeyEvent.VK_A)) {
-                mannschaftB.getMannschaft().toFirst();
-                mannschaftB.getAktSpieler().setX(mannschaftB.getAktSpieler().getX() - mannschaftB.getAktSpieler().getSpeed() * dt);
-            }
-            if (viewController.isKeyDown(KeyEvent.VK_S)) {
-                mannschaftB.getMannschaft().toFirst();
-                mannschaftB.getAktSpieler().setY(mannschaftB.getAktSpieler().getY() + mannschaftB.getAktSpieler().getSpeed() * dt);
-            }
+
         }
     }
 
@@ -189,7 +216,7 @@ public class ProgramController {
     /**
      * Die Methode dient zur auffüllung der Bänke und der Mannschaften.
      */
-    public void fillTeams(){
+    public void fillTeam(){
         for(int i = 0; i <10;i++){
             if (i < 3){
                 mannschaftA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,true));
@@ -197,25 +224,17 @@ public class ProgramController {
                 bankA.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,true));
             }
         }
-        for(int i = 0; i <10;i++){
-            if (i < 3){
-                mannschaftB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,false));
-            }else{
-                bankB.fillTheTeam(new Spieler(Math.random()*300+10,Math.random()*100+10,false));
-            }
+
+
         }
-    }
+
 
     /**
      * Die Methode dient zur auffüllung des Investoren-Arrays.
      */
-    public void fillInvestors() {
-        for (int i = 0; i < investoren.length; i++) {
-            for (int j = 0; j < investoren[i].length; j++) {
-                investoren[i][j] = new Investoren(mannschaftA, mannschaftB);
-            }
-        }
-    }
+
+
+
 
     /**
      *Die Methode prüft, ob ein Spieler aus eiener Mannschaft mit dem Ball kollidiert.
@@ -254,8 +273,8 @@ public class ProgramController {
      */
     public void schussKollision(Spieler spieler,Ball ball,double dt){
         // Der Abstand in X-(horizontal) und Y-Richtung(vertikal) wird festgelegt
-        double dx=(spieler.getX()+55)-ball.getX();
-        double dy=(spieler.getY()+55)-ball.getY();
+        double dx=(spieler.getX())-ball.getX();
+        double dy=(spieler.getY())-ball.getY();
         //Die Hypothenuse des rechtwinkligen Dreiecks mit dx und dy als Katheten widr festgelegt
         double hypothenuse=Math.sqrt(Math.pow(dx,2)+ Math.pow(dy,2));
         //Die Radien der Kreisobjekte werden festgelegt
@@ -266,8 +285,8 @@ public class ProgramController {
         // falls die Hypothnuse den Wert 1 hätte und
         // man diese mit der Geschwindigkeit des Spielers(und mehr) verfielfachen würde
         if(hypothenuse<((rb+rs)/2)){
-            ball.setVx(-dx/hypothenuse*spieler.getSpeed()*1.5);
-            ball.setVy(-dy/hypothenuse*spieler.getSpeed()*1.5);
+            ball.setVx(-dx/hypothenuse*spieler.getSpeed()*2);
+            ball.setVy(-dy/hypothenuse*spieler.getSpeed()*2);
         }else {
             //Sonst: Lasse den Ball langsamer werden, bis er stoppt.
             // Hier müssen die Fälle beachtet werden,
@@ -281,4 +300,22 @@ public class ProgramController {
         }
 
     }
-}
+    public void SiegesKollision() {
+        if (ball.getX() > 1000) {
+            ball.setX(500);
+            points1++;
+            gol = true;
+
+        }
+    }
+
+
+    public void sucheAgency(){
+
+    }
+
+
+
+        }
+
+

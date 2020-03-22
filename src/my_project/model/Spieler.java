@@ -3,7 +3,10 @@ package my_project.model;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Spieler extends GraphicalObject {
     private BufferedImage player1;
@@ -15,14 +18,17 @@ public class Spieler extends GraphicalObject {
     private boolean elfertuechtig;
     private boolean ingame;
 
-    public Spieler(double x, double y, boolean teamA){
-        player1 = createImage("assets/images/bay.jpg");
-        player2 = createImage("assets/images/th.jpg");
+    public Spieler (double x, double y, boolean teamA){
+        try {
+            player1 = ImageIO.read(new File("assets/images/goku.png"));
+        } catch (IOException e){
+            System.out.println("no");
+        }
         speed = (int)(Math.random()*10+100);
         stamina = 100;
         this.x = x;
         this.y = y;
-        radius = 160;
+        radius = 30;
         pic = teamA;
         elfertuechtig= false;
         ingame = false;
@@ -31,12 +37,12 @@ public class Spieler extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
+
         drawTool.drawFilledCircle(x,y,radius);
-        if (!pic){
+
             drawTool.drawImage(player1,x,y);
-        }else{
-            drawTool.drawImage(player2,x,y);
-        }
+
+
         drawTool.drawCircle(x,y,radius);
 
     }

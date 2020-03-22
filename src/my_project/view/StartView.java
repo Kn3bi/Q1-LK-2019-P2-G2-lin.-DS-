@@ -10,7 +10,7 @@ public class StartView extends GraphicalObject {
     private BufferedImage bild;
 
     public StartView(){
-        bild = createImage("assets/images/StartBild.png");
+        bild = createImage("assets/images/back.png");
         x = 0;
         y= 0;
     }

@@ -13,8 +13,8 @@ public class EndeView extends GraphicalObject {
      */
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawText(300,200,siegerSituation);
-        drawTool.drawText(300,400,"Zum zurückkehren drücke die Taste 1");
+       drawTool.drawText(200,300,"TIPICO UNLIMITED");
+        ;
     }
 
     @Override

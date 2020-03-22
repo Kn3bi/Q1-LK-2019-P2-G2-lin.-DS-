@@ -18,7 +18,7 @@ public abstract class GraphicalObject implements Drawable {
     // Attribute: um Konstruktoraufrufzwang zu vermeiden wurden hier AUSNAHMSWEISE Startwerte gesetzt
     protected double x = 0, y = 0; // Die Koordinaten des Objekts
     protected double width = 1, height = 1; // Die rechteckige Ausdehnung des Objekts, wobei x/y die obere, linke Ecke angeben
-
+    private  double changeW= 1,changeH = 1;
     // Referenzen
     private BufferedImage myImage;
 
@@ -46,6 +46,7 @@ public abstract class GraphicalObject implements Drawable {
             myImage = ImageIO.read(new File(pathToImage));
             width = myImage.getWidth();
             height = myImage.getHeight();
+
         } catch (IOException e) {
             if (Config.INFO_MESSAGES) System.out.println("Laden eines Bildes fehlgeschlagen: " + pathToImage);
         }

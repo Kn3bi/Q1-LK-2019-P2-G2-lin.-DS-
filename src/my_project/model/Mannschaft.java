@@ -37,6 +37,10 @@ public class Mannschaft extends GraphicalObject {
     public void fillTheTeam(Spieler spieler){
         mannschaft.append(spieler);
     }
+public void delete(Spieler spieler){
+        mannschaft.toFirst();
+        mannschaft.remove();
+}
 
     public List getMannschaft(){
         return mannschaft;
