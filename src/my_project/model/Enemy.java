@@ -1,12 +1,20 @@
 package my_project.model;
 
-import KAGO_framework.model.GraphicalObject;
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
 import KAGO_framework.view.*;
+import my_project.model.Ball;
+import my_project.model.Enemy;
 
-import javax.imageio.ImageIO;
+
+
+import KAGO_framework.model.GraphicalObject;
+import KAGO_framework.model.abitur.datenstrukturen.List;
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
+import KAGO_framework.model.abitur.datenstrukturen.Stack;
+import KAGO_framework.view.DrawTool;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 
 public class Enemy extends GraphicalObject {
     private BufferedImage player2;
@@ -16,12 +24,10 @@ public class Enemy extends GraphicalObject {
     private int radius;
 
 
-    public  Enemy (double x, double y, boolean teamA){
-        try {
-            player2 = ImageIO.read(new File("assets/images/goku.png"));
-        } catch (IOException e){
-            System.out.println("no");
-        }
+    public  Enemy (double x, double y){
+
+            player2 = createImage("assets/images/goku.png");
+
         speed = (int)(Math.random()*10+100);
         this.x = x;
         this.y = y;

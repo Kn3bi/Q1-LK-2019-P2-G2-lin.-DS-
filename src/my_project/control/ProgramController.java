@@ -7,7 +7,7 @@ import my_project.model.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import KAGO_framework.model.abitur.datenstrukturen.List;
-
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -71,6 +71,7 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         viewController.showScene(scene);
+        System.out.print(mannschaftE.getAktSpieler());
     }
 
     /**
@@ -167,9 +168,13 @@ public class ProgramController {
         if(scene == 2) {
             viewController.getSoundController().playSound("game");
 
+                if(!mannschaftA.notEmpty()){
+                     endZustand = true;
+                }
+            if (viewController.isKeyDown(KeyEvent.VK_S)&& mannschaftA.notEmpty()) {
 
-            if (viewController.isKeyDown(KeyEvent.VK_S)) {
-                mannschaftA.delete(mannschaftA.getAktSpieler());
+                    mannschaftA.delete(mannschaftA.getAktSpieler());
+
             }
             pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(), dt);
             SiegesKollision();
@@ -195,9 +200,10 @@ public class ProgramController {
 
                 mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
             }
-            
-
-
+                if(viewController.isKeyDown((KeyEvent.VK_W))){
+                    mannschaftE.getEnemy().front();
+                    mannschaftE.getAktSpieler().setY(mannschaftE.getY()+mannschaftE.getAktSpieler().getSpeed()*dt);
+                }
         }
     }
 
@@ -218,12 +224,12 @@ public class ProgramController {
         for(int i = 0; i <3;i++) {
 
             mannschaftA.fillTheTeam(new Spieler(Math.random() * 300 + 10, Math.random() * 100 + 10, true));
+            mannschaftE.fuelleEnemies(new Enemy(Math.random()*400+10,Math.random()*200+10));
         }
 
-            for (int j = 0; j < 3; j++) {
-                mannschaftE.fuelleEnemies(new Enemy(Math.random() * 600 + 30, Math.random() * 300 + 20, true));
 
-        }
+
+
 
         }
 

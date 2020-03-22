@@ -1,16 +1,7 @@
 package my_project.model;
 
-import KAGO_framework.model.abitur.datenstrukturen.Queue;
-import KAGO_framework.view.*;
-import my_project.model.Ball;
-import my_project.model.Enemy;
-
-
-
 import KAGO_framework.model.GraphicalObject;
-import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
-import KAGO_framework.model.abitur.datenstrukturen.Stack;
 import KAGO_framework.view.DrawTool;
 
 public class Mannschaft2 extends GraphicalObject {
@@ -23,17 +14,19 @@ public class Mannschaft2 extends GraphicalObject {
         mannschaft2 = new Queue<>();
         this.ball = ball;
     }
+    public Queue getEnemy(){return mannschaft2;}
 
     @Override
     public void draw(DrawTool drawTool) {
-        mannschaft2.front();
         while(!mannschaft2.isEmpty()){
             mannschaft2.front().draw(drawTool);
-
+            mannschaft2.dequeue();
         }
-        mannschaft2.dequeue();
-    }
 
+    }
+    public Enemy getAktSpieler(){
+        return mannschaft2.front();
+    }
     @Override
     public void update(double dt) {
 
@@ -42,9 +35,14 @@ public class Mannschaft2 extends GraphicalObject {
     /**
      * Diese Methode dient der Auffüllung der Liste (extern)
      */
-    public void fuelleEnemies(Enemy enemy){
-        mannschaft2.enqueue(enemy);
+    public void fuelleEnemies(Enemy enemy)
+    {
+
+            mannschaft2.enqueue(enemy);
+
     }
+
+
 
 
 

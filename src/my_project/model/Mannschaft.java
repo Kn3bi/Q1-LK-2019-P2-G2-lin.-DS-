@@ -91,6 +91,12 @@ public void delete(Spieler spieler){
             mannschaft.toLast();
         }
     }
+        public boolean notEmpty(){
+        if (!mannschaft.isEmpty()){
+            return true;
+        }
+            return false;
+        }
 
     /**
      * Die Methode dient zur Auswechslung von Spielern, falls deren Ausdauer unter 0 fallen.
