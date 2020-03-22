@@ -201,8 +201,8 @@ public class ProgramController {
                 mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
             }
                 if(viewController.isKeyDown((KeyEvent.VK_W))){
-                    mannschaftE.getEnemy().front();
-                    mannschaftE.getAktSpieler().setY(mannschaftE.getY()+mannschaftE.getAktSpieler().getSpeed()*dt);
+                   // mannschaftE.getEnemy().front();
+                    mannschaftE.getAktSpieler().setY(mannschaftE.getAktSpieler().getY()+mannschaftE.getAktSpieler().getSpeed()*dt);
                 }
         }
     }

@@ -26,8 +26,9 @@ public class Enemy extends GraphicalObject {
 
     public  Enemy (double x, double y){
 
-            player2 = createImage("assets/images/goku.png");
-
+            //player2 = createImage("assets/images/goku.png");
+        setNewImage("assets/images/goku.png");
+            player2=getMyImage();
         speed = (int)(Math.random()*10+100);
         this.x = x;
         this.y = y;

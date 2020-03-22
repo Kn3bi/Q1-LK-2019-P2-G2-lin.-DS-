@@ -18,8 +18,15 @@ public class Mannschaft2 extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        while(!mannschaft2.isEmpty()){
+        Enemy e=mannschaft2.front();
+
+        mannschaft2.front().draw(drawTool);
+        mannschaft2.enqueue(mannschaft2.front());
+        mannschaft2.dequeue();
+
+        while(mannschaft2.front()!=e){
             mannschaft2.front().draw(drawTool);
+            mannschaft2.enqueue(mannschaft2.front());
             mannschaft2.dequeue();
         }
 
