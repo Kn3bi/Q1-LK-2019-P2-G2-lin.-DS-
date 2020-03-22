@@ -195,18 +195,8 @@ public class ProgramController {
 
                 mannschaftA.getAktSpieler().setY(mannschaftA.getAktSpieler().getY() + mannschaftA.getAktSpieler().getSpeed() * dt);
             }
-            if (viewController.isKeyDown(KeyEvent.VK_W)) {
-                mannschaftE.aktuSpieler().setY(mannschaftE.aktuSpieler().getY() - mannschaftE.aktuSpieler().getSpeed() * dt);
-            }
-            if (viewController.isKeyDown(KeyEvent.VK_S)) {
-                mannschaftE.aktuSpieler().setY(mannschaftE.aktuSpieler().getY() + mannschaftE.aktuSpieler().getSpeed() * dt);
-            }
-            if (viewController.isKeyDown(KeyEvent.VK_A)) {
-                mannschaftE.aktuSpieler().setX(mannschaftE.aktuSpieler().getX() - mannschaftE.aktuSpieler().getSpeed() * dt);
-            }
-            if (viewController.isKeyDown(KeyEvent.VK_D)) {
-                mannschaftE.aktuSpieler().setX(mannschaftE.aktuSpieler().getX() + mannschaftE.aktuSpieler().getSpeed() * dt);
-            }
+            
+
 
         }
     }
