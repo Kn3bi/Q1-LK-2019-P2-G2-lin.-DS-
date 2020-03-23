@@ -18,13 +18,15 @@ public class Schuss extends GraphicalObject {
 
 public Schuss(double x, double y) {
     speed = (int) (Math.random() * 10 + 100);
-    radius = 20;
+    radius = 10;
+    this.x = x;
+    this.y = y;
 }
 
     @Override
     public void draw (DrawTool drawTool){
         speed = (int) (Math.random() * 10 + 100);
-        drawTool.drawFilledCircle(x,y,radius+200);
+        drawTool.drawFilledCircle(x,y,radius);
     }
 
     @Override

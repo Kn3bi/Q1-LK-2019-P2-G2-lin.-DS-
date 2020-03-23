@@ -7,11 +7,11 @@ package my_project;
 public class Config {
 
     // Titel des Programms (steht oben in der Fenstertitelzeile)
-    public final static String WINDOW_TITLE = "I am doing this after Disney World :( and I'm on vacation :((((";
+    public final static String WINDOW_TITLE = "KUDHIHA BALLER LOS";
 
     // Breite des Programmfensters (Width) und Höhe des Programmfensters (Height)
     public final static int WINDOW_WIDTH = 1000;
-    public final static int WINDOW_HEIGHT = 1029;   // Effektive Höhe ist etwa 29 Pixel geringer (Titelleiste wird mitgezählt)
+    public final static int WINDOW_HEIGHT = 529;   // Effektive Höhe ist etwa 29 Pixel geringer (Titelleiste wird mitgezählt)
 
     // Weitere Optionen für das Projekt
     public final static boolean useSound = true; //Achtung: der SoundtController unterstützt momentan nicht alle Java-Versionen (nur bis Java 9)

@@ -14,7 +14,8 @@ import KAGO_framework.model.abitur.datenstrukturen.Queue;
  * mit jeder Frame im laufenden Programm aufgerufen.
  */
 public class ProgramController {
-
+        private double schussX;
+        private double schussY;
     //Attribute
 
     // Referenzen
@@ -41,43 +42,45 @@ public class ProgramController {
      * @param ViewController das viewController-Objekt des Programms
      */
     public ProgramController(ViewController ViewController){
-        this.viewController = ViewController;
-        ball = new Ball(70, 350);
-        viewController.getSoundController().loadSound("assets/images/op1.wav","game",true);
+            this.viewController = ViewController;
+            ball = new Ball(70, 350);
+            viewController.getSoundController().loadSound("assets/images/op1.wav","game",true);
 
-        mannschaftA = new Mannschaft(ball);
-        mannschaftE = new Mannschaft2(ball);
-        schussS     = new schussStack();
+            mannschaftA = new Mannschaft(ball);
+            mannschaftE = new Mannschaft2(ball);
+            schussS     = new schussStack();
 
-
-
-        viewCon = new my_project.control.ViewController();
-        scene = 0;
-        endZustand = false;
-        agencyy[0][0]= 10;
-        agencyy[0][1]= 3;
-        agencyy[0][2]= 4;
-        agencyy[1][1]= 6;
-        agencyy[2][1] = 3;
-        agencyy[2][2] = 10;
-        //--------------------------------------------------------------------
-        fillTeam();
-
-        mannschaftA.changePlayer();
-        mannschaftE.changeSpieler();
-        viewController.createScene();
-        viewController.createScene();
-        viewController.createScene();
-        viewController.createScene();
-        viewController.createScene();
-        viewController.showScene(scene);
-        System.out.print(mannschaftE.getAktSpieler());
+            schussX = mannschaftE.getX();
+        schussY = mannschaftE.getY();
+            viewCon = new my_project.control.ViewController();
+            scene = 0;
+            endZustand = false;
+            agencyy[0][0]= 10;
+            agencyy[0][1]= 3;
+            agencyy[0][2]= 4;
+            agencyy[1][1]= 6;
+            agencyy[2][1] = 3;
+            agencyy[2][2] = 10;
+            //--------------------------------------------------------------------
+            fillTeam();
+            fillMuni();
+            mannschaftA.changePlayer();
+            mannschaftE.changeSpieler();
+            viewController.createScene();
+            viewController.createScene();
+            viewController.createScene();
+            viewController.createScene();
+            viewController.createScene();
+            viewController.showScene(scene);
+            System.out.print(mannschaftE.getAktSpieler());
+            System.out.print(schussS.getLastSchuss());
     }
 
     /**
      * Diese Methode wird genau ein mal nach Programmstart aufgerufen. Achtung: funktioniert nicht im Szenario-Modus
      */
     public void startProgram() {
+        fillMuni();
         for(int i = 0;i<3;i++){
             for(int j=  0 ;j<3;j++){
                 System.out.println(agencyy[i][j]);
@@ -100,6 +103,7 @@ public class ProgramController {
         viewController.draw(viewCon.getSpielV(),2);
         viewController.draw(viewCon.getZeitV(),2);
         viewController.draw(mannschaftA,2);
+        viewController.draw(schussS,2);
         viewController.draw( mannschaftE,2);
 
         viewController.draw(ball,2);
@@ -108,10 +112,10 @@ public class ProgramController {
 
 
         viewController.draw(viewCon.getEndView(),4);
-        if(schussA){
-            viewController.draw(schussS,2);
+
+
         }
-    }
+
 
     /**
      * Für FORTGESCHRITTENE
@@ -119,6 +123,10 @@ public class ProgramController {
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
     public void updateProgram(double dt){
+
+        if(schussA){
+            schussS.getLastSchuss().setX(schussS.getLastSchuss().getX()-20*dt);
+        }
         if(gol){
             for(int i = 0;i<(int)(Math.random()*2);i++) {
                 for (int j = 0; j < (int) (Math.random() * 2); j++) {
@@ -164,7 +172,13 @@ public class ProgramController {
             }
         }
 
-
+        if(schussA = true){
+            if(schussS.getX()<-10){
+                actuKoor();
+                schussS.delete();
+                schussA = false;
+            }
+        }
 
 
         if(scene == 2) {
@@ -172,6 +186,8 @@ public class ProgramController {
             if(viewController.isKeyDown(KeyEvent.VK_Z)){
 
                 schussA = true;
+
+
             }
                 if(!mannschaftA.notEmpty()){
                      endZustand = true;
@@ -181,14 +197,18 @@ public class ProgramController {
                     mannschaftA.delete(mannschaftA.getAktSpieler());
 
             }
-            fillMuni();
+
             pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(), dt);
             SiegesKollision();
             if(points1==3){
                 endZustand = true;
             }
+            if(viewController.isKeyDown(KeyEvent.VK_B)){
+                mannschaftE.delete();
+            }
             if (viewController.isKeyDown(KeyEvent.VK_RIGHT)) {
                 mannschaftA.getMannschaft().toFirst();
+
                 mannschaftA.getAktSpieler().setX(mannschaftA.getAktSpieler().getX() + mannschaftA.getAktSpieler().getSpeed() * dt);
             }
             if (viewController.isKeyDown(KeyEvent.VK_LEFT)) {
@@ -208,17 +228,33 @@ public class ProgramController {
             }
                 if(viewController.isKeyDown((KeyEvent.VK_W))){
                    // mannschaftE.getEnemy().front();
+
                     mannschaftE.getAktSpieler().setY(mannschaftE.getAktSpieler().getY()-mannschaftE.getAktSpieler().getSpeed()*dt);
+                    if(!schussA) {
+
+                    actuKoor();
+                    }
                 }
             if(viewController.isKeyDown((KeyEvent.VK_S))){
                 // mannschaftE.getEnemy().front();
+
                 mannschaftE.getAktSpieler().setY(mannschaftE.getAktSpieler().getY()+mannschaftE.getAktSpieler().getSpeed()*dt);
+                if(!schussA) {
+                    actuKoor();
+                }
             }
+            schussKollisionE(mannschaftE.getAktSpieler(),ball,dt);
             if(viewController.isKeyDown(KeyEvent.VK_A)){
+
                 mannschaftE.getAktSpieler().setX(mannschaftE.getAktSpieler().getX()-mannschaftE.getAktSpieler().getSpeed()*dt);
+                if(!schussA) {
+                    actuKoor();
+                }
             }
+
             if(viewController.isKeyDown(KeyEvent.VK_D)){
                 mannschaftE.getAktSpieler().setX(mannschaftE.getAktSpieler().getX()+mannschaftE.getAktSpieler().getSpeed()*dt);
+                actuKoor();
             }
         }
     }
@@ -249,23 +285,14 @@ public class ProgramController {
 
         for(int i = 0;i <20;i++){
             schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY()));
+
         }
+    }
+    public void actuKoor(){
+        schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY()));
     }
 
 
-    /**
-     * Die Methode dient zur auffüllung des Investoren-Arrays.
-     */
-
-
-
-
-    /**
-     *Die Methode prüft, ob ein Spieler aus eiener Mannschaft mit dem Ball kollidiert.
-     * Dies wird mit jedem Spieler der AMnnschaft gemacht.
-     * @param m die übergebene MAnnschaft, deren alle Spieler auf eine BAllkollision überprüft werden
-     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
-     */
     public void pruefeSchussFuerAlleSpieler(List<Spieler> m,double dt){
         m.toFirst();
         while(m.hasAccess()){
@@ -274,19 +301,7 @@ public class ProgramController {
         }
     }
 
-    /**
-     *In dieser Methode wird geschaut,ob ein Spieler,der sich im Spiel befindet als Elfmeterspieler eignet.
-     * Falls dies der Fall ist, wird das Attribut auf true gesetzt.
-     * @param e eine Liste, die Spieler beinhaltet
-     * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
-     */
-    public void setzeElfmeterSchuetze(List<Spieler>e,double dt){
-            e.toFirst();
-        if(mannschaftA.getAktSpieler().getStamina()>50 && mannschaftA.getAktSpieler().getIngame() ){
-            mannschaftA.getAktSpieler().setElfertuechtig(true);
 
-        }
-    }
 
     /**
      *

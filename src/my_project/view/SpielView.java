@@ -9,7 +9,7 @@ public class SpielView extends GraphicalObject {
     private BufferedImage feld;
 
     public SpielView(){
-        setNewImage("assets/images/field.png");
+        setNewImage("assets/images/gir+.jpg");
         feld = getMyImage();
 
     }

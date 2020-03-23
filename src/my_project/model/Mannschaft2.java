@@ -45,11 +45,14 @@ public class Mannschaft2 extends GraphicalObject {
     public void fuelleEnemies(Enemy enemy)
     {
 
+
             mannschaft2.enqueue(enemy);
 
     }
 
-
+    public void delete(){
+        mannschaft2.dequeue();
+    }
 
 
 

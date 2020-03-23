@@ -41,8 +41,8 @@ public class Ball extends GraphicalObject {
             x=0;
             vx=-vx;
         }
-        if(y>1029){
-            y=1029;
+        if(y>500-radius){
+            y=500-radius;
             vy=-vy;
         }
         if(y<0){

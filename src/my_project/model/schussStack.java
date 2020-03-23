@@ -36,4 +36,7 @@ public class schussStack extends GraphicalObject {
         schussS.push(schuss);
 
     }
+    public void delete(){
+        schussS.pop();
+    }
     }
