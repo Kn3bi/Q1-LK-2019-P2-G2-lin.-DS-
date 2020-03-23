@@ -22,8 +22,8 @@ public class ProgramController {
     private Mannschaft mannschaftA;
     private Mannschaft2 mannschaftE;
     private Bank bankA;
-
-
+    private schussStack schussS;
+    private boolean schussA;
     private Ball ball;
     private my_project.control.ViewController viewCon;
     private int scene;
@@ -47,7 +47,7 @@ public class ProgramController {
 
         mannschaftA = new Mannschaft(ball);
         mannschaftE = new Mannschaft2(ball);
-
+        schussS     = new schussStack();
 
 
 
@@ -108,7 +108,9 @@ public class ProgramController {
 
 
         viewController.draw(viewCon.getEndView(),4);
-
+        if(schussA){
+            viewController.draw(schussS,2);
+        }
     }
 
     /**
@@ -167,15 +169,19 @@ public class ProgramController {
 
         if(scene == 2) {
             viewController.getSoundController().playSound("game");
+            if(viewController.isKeyDown(KeyEvent.VK_Z)){
 
+                schussA = true;
+            }
                 if(!mannschaftA.notEmpty()){
                      endZustand = true;
                 }
-            if (viewController.isKeyDown(KeyEvent.VK_S)&& mannschaftA.notEmpty()) {
+            if (viewController.isKeyDown(KeyEvent.VK_G)&& mannschaftA.notEmpty()) {
 
                     mannschaftA.delete(mannschaftA.getAktSpieler());
 
             }
+            fillMuni();
             pruefeSchussFuerAlleSpieler(mannschaftA.getMannschaft(), dt);
             SiegesKollision();
             if(points1==3){
@@ -202,8 +208,18 @@ public class ProgramController {
             }
                 if(viewController.isKeyDown((KeyEvent.VK_W))){
                    // mannschaftE.getEnemy().front();
-                    mannschaftE.getAktSpieler().setY(mannschaftE.getAktSpieler().getY()+mannschaftE.getAktSpieler().getSpeed()*dt);
+                    mannschaftE.getAktSpieler().setY(mannschaftE.getAktSpieler().getY()-mannschaftE.getAktSpieler().getSpeed()*dt);
                 }
+            if(viewController.isKeyDown((KeyEvent.VK_S))){
+                // mannschaftE.getEnemy().front();
+                mannschaftE.getAktSpieler().setY(mannschaftE.getAktSpieler().getY()+mannschaftE.getAktSpieler().getSpeed()*dt);
+            }
+            if(viewController.isKeyDown(KeyEvent.VK_A)){
+                mannschaftE.getAktSpieler().setX(mannschaftE.getAktSpieler().getX()-mannschaftE.getAktSpieler().getSpeed()*dt);
+            }
+            if(viewController.isKeyDown(KeyEvent.VK_D)){
+                mannschaftE.getAktSpieler().setX(mannschaftE.getAktSpieler().getX()+mannschaftE.getAktSpieler().getSpeed()*dt);
+            }
         }
     }
 
@@ -224,14 +240,17 @@ public class ProgramController {
         for(int i = 0; i <3;i++) {
 
             mannschaftA.fillTheTeam(new Spieler(Math.random() * 300 + 10, Math.random() * 100 + 10, true));
-            mannschaftE.fuelleEnemies(new Enemy(Math.random()*400+10,Math.random()*200+10));
+            mannschaftE.fuelleEnemies(new Enemy(Math.random()*400+300,Math.random()*200+10));
         }
 
+    }
 
+    public void fillMuni(){
 
-
-
+        for(int i = 0;i <20;i++){
+            schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY()));
         }
+    }
 
 
     /**
@@ -315,7 +334,34 @@ public class ProgramController {
     }
 
 
-    public void sucheAgency(){
+
+    public void schussKollisionE(Enemy enemy,Ball ball,double dt){
+        // Der Abstand in X-(horizontal) und Y-Richtung(vertikal) wird festgelegt
+        double dx=(enemy.getX())-ball.getX();
+        double dy=(enemy.getY())-ball.getY();
+        //Die Hypothenuse des rechtwinkligen Dreiecks mit dx und dy als Katheten widr festgelegt
+        double hypothenuse=Math.sqrt(Math.pow(dx,2)+ Math.pow(dy,2));
+        //Die Radien der Kreisobjekte werden festgelegt
+        double rs=enemy.getRadius();
+        double rb=ball.getRadius();
+
+        //Falls Objekte sich berühren, berechne für X und Y Richtung die neuen GEschwindigkeiten,
+        // falls die Hypothnuse den Wert 1 hätte und
+        // man diese mit der Geschwindigkeit des Spielers(und mehr) verfielfachen würde
+        if(hypothenuse<((rb+rs)/2)){
+            ball.setVx(-dx/hypothenuse*enemy.getSpeed()*2);
+            ball.setVy(-dy/hypothenuse*enemy.getSpeed()*2);
+        }else {
+            //Sonst: Lasse den Ball langsamer werden, bis er stoppt.
+            // Hier müssen die Fälle beachtet werden,
+            // dass die Gerschwindigkeit, je nach Richtung, negativ sein kann.
+            if(ball.getVx()!=0) {
+                ball.setVx(ball.getVx() - 10 * ball.getVx() / Math.abs(ball.getVx())* dt);
+            }
+            if(ball.getVy()!=0) {
+                ball.setVy(ball.getVy() - 10 * ball.getVy() / Math.abs(ball.getVy())* dt );
+            }
+        }
 
     }
 
