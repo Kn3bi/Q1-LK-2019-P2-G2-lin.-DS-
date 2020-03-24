@@ -130,13 +130,13 @@ public class ProgramController {
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
     public void updateProgram(double dt){
-if(schussS.getLastSchuss().collidesWith(mannschaftA.getAktSpieler())){
-    leben--;
-}
+        mannschaftA.changePlayer();
+        if(schussS.getLastSchuss().collidesWith(mannschaftA.getAktSpieler())){
+            leben--;
+        }
         if(gol){
             viewController.draw(pointS,2);
         }
-
 
 
 
