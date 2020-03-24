@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
+import my_project.view.SpielView;
+import my_project.view.ZeitView;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -19,7 +21,10 @@ public class ProgramController {
     //Attribute
 
     // Referenzen
+    private int leben = 0;
+
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
+    private Punktetafel    pointS;
     private Mannschaft mannschaftA;
     private Mannschaft2 mannschaftE;
     private Bank bankA;
@@ -33,6 +38,7 @@ public class ProgramController {
     private boolean puante;
     private int[][] agencyy = new int [3][3] ;
     private boolean gol= false;
+    private int anzahli = 7;
 
     /**
      * Konstruktor
@@ -45,7 +51,7 @@ public class ProgramController {
             this.viewController = ViewController;
             ball = new Ball(70, 350);
             viewController.getSoundController().loadSound("assets/images/op1.wav","game",true);
-
+            pointS = new Punktetafel("Punkte"+points1);
             mannschaftA = new Mannschaft(ball);
             mannschaftE = new Mannschaft2(ball);
             schussS     = new schussStack();
@@ -89,7 +95,7 @@ public class ProgramController {
         if(gol){
             for(int i = 0;i<(int)(Math.random()*2);i++) {
                 for (int j = 0; j < (int) (Math.random() * 2); j++) {
-                    if ((int) (Math.random() * 7) == agencyy[i][j]) {
+                    if ((int) (Math.random() * anzahli) == agencyy[i][j]) {
                         points1+= agencyy[i][j];
                         endZustand = true;
                     }
@@ -97,7 +103,7 @@ public class ProgramController {
 
             }
         }
-
+        viewController.draw(viewCon.getEndView(),4);
         viewController.draw(viewCon.getStartV(),0);
         viewController.draw(viewCon.getAnleitungsV(),1);
         viewController.draw(viewCon.getSpielV(),2);
@@ -105,6 +111,7 @@ public class ProgramController {
         viewController.draw(mannschaftA,2);
         viewController.draw(schussS,2);
         viewController.draw( mannschaftE,2);
+        viewController.draw(pointS,2);
 
         viewController.draw(ball,2);
 
@@ -123,26 +130,42 @@ public class ProgramController {
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.
      */
     public void updateProgram(double dt){
+if(schussS.getLastSchuss().collidesWith(mannschaftA.getAktSpieler())){
+    leben--;
+}
+        if(gol){
+            viewController.draw(pointS,2);
+        }
+
+
+
 
         if(schussA){
-            schussS.getLastSchuss().setX(schussS.getLastSchuss().getX()-20*dt);
+            schussS.getLastSchuss().setX(schussS.getLastSchuss().getX()-100*dt);
         }
         if(gol){
             for(int i = 0;i<(int)(Math.random()*2);i++) {
                 for (int j = 0; j < (int) (Math.random() * 2); j++) {
-                    if ((int) (Math.random() * 7) == agencyy[i][j]) {
+                    if ((int) (Math.random() * anzahli) == agencyy[i][j]) {
                         points1+= agencyy[i][j];
+                        endZustand = true;
+
+                        viewCon.getEndView().setW3t(true);
+                        System.out.println("Ruffys Schein ist aufgegangen");
                     }
                 }
 
             }
         }
         if(gol&& !endZustand) {
+
             System.out.println(points1 + "   Pünktchen");
         }
 
 
-
+/**
+ * Hier findet die Tastenbelegung statt!
+ */
         if (viewController.isKeyDown(KeyEvent.VK_0)){
             if (scene == 0){
                 scene = 1;
@@ -158,17 +181,28 @@ public class ProgramController {
                 scene = 0;
                 viewController.showScene(scene);
             }
-
+/**
+ * Endzustände
+ */
         }else if (endZustand){
             if (scene==2 || scene == 3){
                 scene = 4;
                 viewController.showScene(scene);
-                if(points1 == 3){
+                if(points1 == 3) {
+                    viewCon.getEndView().setW1t(true);
                     System.out.println("Spieler 1 gewinnt, Ruffys tipico schein ist nicht aufgegangen");
 
-                }else{
-                    viewCon.getEndView().setSiegerSituation("Unentschieden");
+
                 }
+
+            }
+        }
+        if(viewCon.getZeitV().getZeit()>60) {
+            if (!gol) {
+                viewCon.getEndView().setW2t(true);
+                endZustand = true;
+                System.out.println("Spieler 1 verliert, Ruffys Tipico Schein ist nicht aufgegangen");
+
             }
         }
 
@@ -270,29 +304,43 @@ public class ProgramController {
     }
 
     /**
-     * Die Methode dient zur auffüllung der Bänke und der Mannschaften.
+     * Mannschaft mit der List und Mannschaft mit der Queue werden aufgefüllt!
      */
     public void fillTeam(){
         for(int i = 0; i <3;i++) {
 
-            mannschaftA.fillTheTeam(new Spieler(Math.random() * 300 + 10, Math.random() * 100 + 10, true));
+            mannschaftA.fillTheTeam(new Spieler(Math.random() * 300 + 10, Math.random() * 100 + 10, 20,20));
             mannschaftE.fuelleEnemies(new Enemy(Math.random()*400+300,Math.random()*200+10));
         }
 
     }
 
+    /**
+     * Hier wird die Munition aufgefüllt!
+     */
+
     public void fillMuni(){
 
         for(int i = 0;i <20;i++){
-            schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY()));
+            schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY(),10,10));
 
         }
+
     }
+
+    /**
+     * Koordianten vom Schuss werden aktualisiert wenn der Spieler kurz
+     * nach hinten geht!
+     */
     public void actuKoor(){
-        schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY()));
+        schussS.fillMunis(new Schuss(mannschaftE.getAktSpieler().getX(),mannschaftE.getAktSpieler().getY(),10,10));
     }
 
-
+    /**
+     * Hier wird immer noch die Kollision zwischen den Spielern überprüft!
+     * @param m Spieler in der List (der erste)
+     * @param dt
+     */
     public void pruefeSchussFuerAlleSpieler(List<Spieler> m,double dt){
         m.toFirst();
         while(m.hasAccess()){
@@ -339,16 +387,29 @@ public class ProgramController {
         }
 
     }
+
+    /**
+     * Tor"kollision"
+     */
     public void SiegesKollision() {
         if (ball.getX() > 1000) {
             ball.setX(500);
             points1++;
             gol = true;
 
+        }else{
+            gol = false;
         }
     }
 
-
+    /**
+     * Schusskollision vom Gegner
+     * @param enemy der Gegner( Spieler 2)
+     * @param ball  der Ball
+     *
+     * @param dt weiß jeder, ich erklär jetzt keine
+     *           Pixeleinheiten
+     */
 
     public void schussKollisionE(Enemy enemy,Ball ball,double dt){
         // Der Abstand in X-(horizontal) und Y-Richtung(vertikal) wird festgelegt

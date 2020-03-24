@@ -18,7 +18,7 @@ public class Spieler extends GraphicalObject {
     private boolean elfertuechtig;
     private boolean ingame;
 
-    public Spieler (double x, double y, boolean teamA){
+    public Spieler (double x, double y, double width,double height){
         try {
             player1 = ImageIO.read(new File("assets/images/goku.png"));
         } catch (IOException e){
@@ -26,10 +26,12 @@ public class Spieler extends GraphicalObject {
         }
         speed = (int)(Math.random()*10+100);
         stamina = 100;
+        this.width = width;
+        this.height = height;
         this.x = x;
         this.y = y;
         radius = 30;
-        pic = teamA;
+
         elfertuechtig= false;
         ingame = false;
 
@@ -39,7 +41,7 @@ public class Spieler extends GraphicalObject {
     public void draw(DrawTool drawTool) {
 
         drawTool.drawFilledCircle(x,y,radius);
-
+            drawTool.drawRectangle(x,y,width,height);
             drawTool.drawImage(player1,x,y);
 
 
@@ -84,15 +86,9 @@ public class Spieler extends GraphicalObject {
 
     public boolean getElferSchuetze(){return elfertuechtig; }
 
-    public boolean getIngame() { return ingame; }
+   public double getWidth(){return width;}
+   public double getHeight(){ return  height;}
 
-    public void setIngame(boolean ingame) {
-        this.ingame = ingame;
-    }
-
-    public void setElfertuechtig(boolean elfertuechtig) {
-        this.elfertuechtig = elfertuechtig;
-    }
 
     /**
      * Die Methode dient zur Auffüllung der Ausdauer. Wenn diese unter 100 ist soll sie um eins erhöht werden.

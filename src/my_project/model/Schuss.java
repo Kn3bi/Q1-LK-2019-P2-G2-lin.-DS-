@@ -16,24 +16,27 @@ public class Schuss extends GraphicalObject {
     private int speed;
 
 
-public Schuss(double x, double y) {
+public Schuss(double x, double y,double width,double height) {
     speed = (int) (Math.random() * 10 + 100);
     radius = 10;
     this.x = x;
     this.y = y;
+    this.width = width;
+    this.height = height;
 }
 
     @Override
     public void draw (DrawTool drawTool){
         speed = (int) (Math.random() * 10 + 100);
-        drawTool.drawFilledCircle(x,y,radius);
+        drawTool.drawFilledRectangle(x,y,width,height);
     }
 
     @Override
     public void update ( double dt){
 
     }
-
+    public double  getWidth(){return width;}
+    public double getHeight(){return  height;}
     public int getRadius() {
         return radius;
     }
